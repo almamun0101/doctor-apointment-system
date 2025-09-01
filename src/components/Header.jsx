@@ -1,4 +1,11 @@
 import React from "react";
+const avatarUrls = [
+  "https://avatars.githubusercontent.com/u/16860528",
+  "https://avatars.githubusercontent.com/u/20110627",
+  "https://avatars.githubusercontent.com/u/106103625",
+  "https://avatars.githubusercontent.com/u/59228569",
+];
+
 
 const Header = () => {
   return (
@@ -27,10 +34,11 @@ const Header = () => {
       <div className="relative">
         <img src="banner.png" alt="Banner" />
         <div className="absolute top-40 right-0 bg-white rounded-sm p-3 ">
-            <span className="text-pri font-bold px-2 text-xl">
-                24/7
-            </span>
-            services
+          <span className="text-pri font-bold px-2 text-xl">24/7</span>
+          services
+        </div>
+        <div className="absolute bottom-10 left-0 bg-white rounded-sm p-3 ">
+         
         </div>
       </div>
     </div>
