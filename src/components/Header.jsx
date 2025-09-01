@@ -43,6 +43,7 @@ const Header = () => {
           <AvatarCircles numPeople={30} avatarUrls={avatarUrls} />
         </div>
       </div>
+      
     </div>
   );
 };

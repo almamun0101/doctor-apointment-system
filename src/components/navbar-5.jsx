@@ -25,6 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ModeToggle } from "./ModeToggle";
 
 export const Navbar5 = () => {
   const features = [
@@ -188,6 +189,7 @@ export const Navbar5 = () => {
               </div>
             </SheetContent>
           </Sheet>
+          <ModeToggle/>
         </nav>
       </div>
     </section>
