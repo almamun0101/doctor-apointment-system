@@ -7,6 +7,7 @@ import Results from '@/components/Results'
 import Choose from '@/components/Choose'
 import Services from '@/components/Services'
 import Team from '@/components/Team'
+import Testimonial from '@/components/Testimonial'
 const page = () => {
   return (
     <div>
@@ -17,6 +18,7 @@ const page = () => {
       <Choose/>
       <Services/>
       <Team/>
+      <Testimonial/>
     </div>
   )
 }
