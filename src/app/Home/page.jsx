@@ -5,6 +5,7 @@ import React from 'react'
 import Find from '@/components/Find'
 import Results from '@/components/Results'
 import Choose from '@/components/Choose'
+import Services from '@/components/Services'
 const page = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const page = () => {
       <Find/>
       <Results/>
       <Choose/>
+      <Services/>
     </div>
   )
 }
