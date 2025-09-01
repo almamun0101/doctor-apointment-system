@@ -1,4 +1,5 @@
 import React from "react";
+import { AvatarCircles } from "./ui/avatar-circles";
 const avatarUrls = [
   "https://avatars.githubusercontent.com/u/16860528",
   "https://avatars.githubusercontent.com/u/20110627",
@@ -37,8 +38,9 @@ const Header = () => {
           <span className="text-pri font-bold px-2 text-xl">24/7</span>
           services
         </div>
-        <div className="absolute bottom-10 left-0 bg-white rounded-sm p-3 ">
-         
+        <div className="absolute bottom-10 -left-20 bg-white rounded-sm px-5 py-2 ">
+            <p>our professionals</p>
+          <AvatarCircles numPeople={30} avatarUrls={avatarUrls} />
         </div>
       </div>
     </div>
