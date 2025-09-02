@@ -11,22 +11,44 @@
   --color-bermuda: #78dcca;
 }
 
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
   --background: red; /* light background */
   --foreground: red;
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(222.2 84% 4.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(222.2 84% 4.9%);
+  --primary: hsl(222.2 47.4% 11.2%);
+  --primary-foreground: hsl(210 40% 98%);
+  --secondary: hsl(210 40% 96.1%);
+  --secondary-foreground: hsl(222.2 47.4% 11.2%);
+  --muted: hsl(210 40% 96.1%);
+  --muted-foreground: hsl(215.4 16.3% 46.9%);
+  --accent: hsl(210 40% 96.1%);
+  --accent-foreground: hsl(222.2 47.4% 11.2%);
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(210 40% 98%);
+  --border: hsl(214.3 31.8% 91.4%);
+  --input: hsl(214.3 31.8% 91.4%);
+  --ring: hsl(222.2 84% 4.9%);
+  --radius: 0.5rem;
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
-
-
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
 
 /* Normal dot */
 .slick-dots li button:before {
@@ -40,7 +62,6 @@ body {
   color: #007E85; /* your primary color */
   opacity: 1;
 }
-
 
 @theme inline {
 
@@ -117,6 +138,10 @@ body {
   --animate-accordion-down: accordion-down 0.2s ease-out;
 
   --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  --radius: var(----radius);
+
+  --color-destructive-foreground: var(----destructive-foreground);
 
   @keyframes accordion-down {
     from {
@@ -299,6 +324,8 @@ body {
   --sidebar-border: oklch(1 0 0 / 10%);
 
   --sidebar-ring: oklch(0.556 0 0);
+
+  --destructive-foreground: hsl(210 40% 98%);
 }
 
 @layer base {
