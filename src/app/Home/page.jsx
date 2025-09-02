@@ -9,6 +9,7 @@ import Services from '@/components/Services'
 import Team from '@/components/Team'
 import Testimonial from '@/components/Testimonial'
 import Trusted from '@/components/Trusted'
+import Footer from '@/components/Footer'
 const page = () => {
   return (
     <div>
@@ -21,6 +22,7 @@ const page = () => {
       <Team/>
       <Testimonial/>
       <Trusted/>
+      <Footer/>
     </div>
   )
 }
