@@ -1,7 +1,7 @@
 "use client";
 
 import { MenuIcon } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 import {
   Accordion,
   AccordionContent,
@@ -26,7 +26,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
-
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser, setUser } from "@/app/store/userSlice";
+import { getAuth, signOut } from "firebase/auth";
 
 const features = [
   {
@@ -60,27 +62,36 @@ const features = [
     href: "#",
   },
 ];
-export const Navbar5 = ({userinfo}) => {
-  let user = userinfo?.currentUser
-  console.log(user)
+export const Navbar5 = () => {
+  const auth = getAuth();
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user.currentUser);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+  await signOut(auth);
+  dispatch(clearUser());
+  router.push("/signin"); // redirect
+};
 
   return (
     <section className="py-4">
       <div className="container">
         <nav className="flex items-center justify-between">
-          <a href="https://www.shadcnblocks.com" className="flex items-center gap-2">
-            <img
-              src="/logo.png"
-              className="max-h-8"
-              alt="Shadcn UI Navbar" />
-            <span className="text-lg font-semibold tracking-tighter">
-             
-            </span>
+          <a
+            href="https://www.shadcnblocks.com"
+            className="flex items-center gap-2"
+          >
+            <img src="/logo.png" className="max-h-8" alt="Shadcn UI Navbar" />
+            <span className="text-lg font-semibold tracking-tighter"></span>
           </a>
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList>
-                <NavigationMenuItem>
-                <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()}>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href="#"
+                  className={navigationMenuTriggerStyle()}
+                >
                   Home
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -92,7 +103,8 @@ export const Navbar5 = ({userinfo}) => {
                       <NavigationMenuLink
                         href={feature.href}
                         key={index}
-                        className="rounded-md p-3 transition-colors hover:bg-muted/70">
+                        className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                      >
                         <div key={feature.title}>
                           <p className="mb-1 font-semibold text-foreground">
                             {feature.title}
@@ -107,26 +119,35 @@ export const Navbar5 = ({userinfo}) => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  href="#"
+                  className={navigationMenuTriggerStyle()}
+                >
                   AppoinentMent
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  href="#"
+                  className={navigationMenuTriggerStyle()}
+                >
                   Contact Us
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  href="#"
+                  className={navigationMenuTriggerStyle()}
+                >
                   Help
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-             <ModeToggle/>
-            <Button variant="outline">Sign in</Button>
-            <Button className="rounded-full h-10">{user?.displayName}</Button>
+            <ModeToggle />
+            <Button variant="outline"  onClick={handleLogout}>Logout</Button>
+            <Button className="rounded-full h-10">{user?.name}</Button>
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -137,11 +158,15 @@ export const Navbar5 = ({userinfo}) => {
             <SheetContent side="top" className="max-h-screen overflow-auto">
               <SheetHeader>
                 <SheetTitle>
-                  <a href="https://www.shadcnblocks.com" className="flex items-center gap-2">
+                  <a
+                    href="https://www.shadcnblocks.com"
+                    className="flex items-center gap-2"
+                  >
                     <img
                       src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
                       className="max-h-8"
-                      alt="Shadcnblocks" />
+                      alt="Shadcnblocks"
+                    />
                     <span className="text-lg font-semibold tracking-tighter">
                       Shadcnblocks.com
                     </span>
@@ -160,7 +185,8 @@ export const Navbar5 = ({userinfo}) => {
                           <a
                             href={feature.href}
                             key={index}
-                            className="rounded-md p-3 transition-colors hover:bg-muted/70">
+                            className="rounded-md p-3 transition-colors hover:bg-muted/70"
+                          >
                             <div key={feature.title}>
                               <p className="mb-1 font-semibold text-foreground">
                                 {feature.title}
@@ -193,7 +219,6 @@ export const Navbar5 = ({userinfo}) => {
               </div>
             </SheetContent>
           </Sheet>
-         
         </nav>
       </div>
     </section>

@@ -3,9 +3,13 @@ import React, { useRef, useEffect, useState } from "react";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import firebaseConfig from "@/app/firebase.config";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { useRouter } from "next/navigation";
-
+import toast, { Toaster } from "react-hot-toast";
 // Helper function to merge class names
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
@@ -274,17 +278,20 @@ const SignInCard = () => {
           photoURL: "https://example.com/jane-q-user/profile.jpg",
         })
           .then(() => {
+            toast.success("Account Create Successfully");
             router.push("/signin");
           })
           .catch((error) => {
             // An error occurred
             // ...
-            console.log(error)
+            console.log(error);
+            toast.success("Account Create Fail");
           });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        toast.success("Account Create Fail");
       });
   };
 
@@ -296,6 +303,7 @@ const SignInCard = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-4xl overflow-hidden rounded-2xl flex bg-white shadow-xl"
       >
+           <Toaster />
         {/* Left side - Map */}
         <div className="hidden md:block w-1/2  relative overflow-hidden border-r border-gray-100">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100">

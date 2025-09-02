@@ -11,6 +11,10 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
+import { setUser } from "../store/userSlice";
+import { useDispatch } from "react-redux";
+import Link from "next/link";
 // Helper function to merge class names
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
@@ -257,9 +261,10 @@ const SignInCard = () => {
   const auth = getAuth();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
+  const dispatch = useDispatch();
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
@@ -276,24 +281,19 @@ const SignInCard = () => {
 
       router.push("/landing");
     } catch (err) {
-      console.error(err.message);
+      toast.error('Invail User');
+      console.log(err.message);
       setError("Invalid email or password");
     }
   };
   const handleGoogleLogin = async () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then((userCredential) => {
+        const user = userCredential.user;
+        dispatch(setUser({ user }));
         router.push("/landing");
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
         console.log(error);
       });
   };
@@ -305,6 +305,7 @@ const SignInCard = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-4xl overflow-hidden rounded-2xl flex bg-white shadow-xl"
       >
+         <Toaster />
         {/* Left side - Map */}
         <div className="hidden md:block w-1/2  relative overflow-hidden border-r border-gray-100">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -475,13 +476,13 @@ const SignInCard = () => {
               </motion.div>
 
               <div className="text-center mt-6">
-                Already Have Account
-                <a
-                  href="#"
+                Create a new Account
+                <Link
+                  href="/signup"
                   className="text-blue-600 hover:text-blue-700 text-lg px-2 underline transition-colors"
                 >
-                  Sign in
-                </a>
+                  Sign Up Here
+                </Link>
               </div>
             </form>
           </motion.div>
