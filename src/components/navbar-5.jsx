@@ -27,39 +27,42 @@ import {
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
 
-export const Navbar5 = () => {
-  const features = [
-    {
-      title: "Dashboard",
-      description: "Overview of your activity",
-      href: "#",
-    },
-    {
-      title: "Analytics",
-      description: "Track your performance",
-      href: "#",
-    },
-    {
-      title: "Settings",
-      description: "Configure your preferences",
-      href: "#",
-    },
-    {
-      title: "Integrations",
-      description: "Connect with other tools",
-      href: "#",
-    },
-    {
-      title: "Storage",
-      description: "Manage your files",
-      href: "#",
-    },
-    {
-      title: "Support",
-      description: "Get help when needed",
-      href: "#",
-    },
-  ];
+
+const features = [
+  {
+    title: "Dashboard",
+    description: "Overview of your activity",
+    href: "#",
+  },
+  {
+    title: "Analytics",
+    description: "Track your performance",
+    href: "#",
+  },
+  {
+    title: "Settings",
+    description: "Configure your preferences",
+    href: "#",
+  },
+  {
+    title: "Integrations",
+    description: "Connect with other tools",
+    href: "#",
+  },
+  {
+    title: "Storage",
+    description: "Manage your files",
+    href: "#",
+  },
+  {
+    title: "Support",
+    description: "Get help when needed",
+    href: "#",
+  },
+];
+export const Navbar5 = ({userinfo}) => {
+  let user = userinfo?.currentUser
+  console.log(user)
 
   return (
     <section className="py-4">
@@ -121,8 +124,9 @@ export const Navbar5 = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
+             <ModeToggle/>
             <Button variant="outline">Sign in</Button>
-            <Button>Start for free</Button>
+            <Button className="rounded-full h-10">{user?.displayName}</Button>
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">
@@ -189,7 +193,7 @@ export const Navbar5 = () => {
               </div>
             </SheetContent>
           </Sheet>
-          <ModeToggle/>
+         
         </nav>
       </div>
     </section>

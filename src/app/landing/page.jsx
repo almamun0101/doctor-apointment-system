@@ -10,10 +10,17 @@ import Team from '@/components/Team'
 import Testimonial from '@/components/Testimonial'
 import Trusted from '@/components/Trusted'
 import Footer from '@/components/Footer'
+import { getAuth } from "firebase/auth";
+import firebaseConfig from "@/app/firebase.config";
+
+
 const page = () => {
+    const auth = getAuth()
+  // console.log(auth)
+
   return (
     <div>
-      <Navbar5/>
+      <Navbar5 userinfo={auth}/>
       <Header/>
       <Find/>
       <Results/>
