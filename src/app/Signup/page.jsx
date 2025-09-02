@@ -4,14 +4,13 @@ import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import firebaseConfig from "@/app/firebase.config";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'
 
 
 
 // Helper function to merge class names
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
-  
 };
 
 const Button = ({
@@ -253,6 +252,8 @@ const DotMap = () => {
 
 const SignInCard = () => {
   const auth = getAuth();
+  const router = useRouter();
+  const [role, setRole] = useState("patient");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -260,13 +261,15 @@ const SignInCard = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleSIgnUp = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        console.log("Create Successfully")
-         router.push('/signin');
+        router.push('/signin');
+        setName("")
+        setEmail("")
+        setPassword("")
+    
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -328,7 +331,7 @@ const SignInCard = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">
-              Welcome 
+              Welcome
             </h1>
             <p className="text-gray-500 mb-8">Create your account</p>
 
@@ -371,7 +374,31 @@ const SignInCard = () => {
             </div>
 
             <form className="space-y-5">
-             
+              <div className="flex items-center justify-center gap-6 mb-6">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="doctor"
+                    checked={role === "doctor"}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="accent-blue-600"
+                  />
+                  <span>Patient</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="patient"
+                    checked={role === "patient"}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="accent-blue-600"
+                  />
+                  <span>Doctor</span>
+                </label>
+              </div>
               <div>
                 <label
                   htmlFor="email"
@@ -390,7 +417,7 @@ const SignInCard = () => {
                 />
               </div>
 
-               <div>
+              <div>
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700 mb-1"
