@@ -3,7 +3,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import firebaseConfig from "@/app/firebase.config";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
 // Helper function to merge class names
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
@@ -247,25 +248,31 @@ const DotMap = () => {
 };
 
 const SignInCard = () => {
+  const auth = getAuth();
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleSIgnUp = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("Create Successfully")
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  };
+  const handleSignin = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("Logged in:", userCredential.user);
 
+      
+      router.push("/landing");
+    } catch (err) {
+      console.error(err.message);
+      setError("Invalid email or password");
+    }
+  };
   return (
     <div className="flex w-full h-full items-center justify-center">
       <motion.div
@@ -320,7 +327,7 @@ const SignInCard = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">
-              Welcome 
+              Welcome
             </h1>
             <p className="text-gray-500 mb-8">Create your account</p>
 
@@ -363,9 +370,7 @@ const SignInCard = () => {
             </div>
 
             <form className="space-y-5">
-             
-             
-               <div>
+              <div>
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -427,10 +432,10 @@ const SignInCard = () => {
                     "w-full bg-gradient-to-r relative overflow-hidden from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white py-2 rounded-lg transition-all duration-300",
                     isHovered ? "shadow-lg shadow-blue-200" : ""
                   )}
-                  onClick={handleSIgnUp}
+                  onClick={handleSignin}
                 >
                   <span className="flex items-center justify-center">
-                    Sign Up
+                    Sign Ip
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </span>
                   {isHovered && (
