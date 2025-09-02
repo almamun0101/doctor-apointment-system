@@ -8,6 +8,7 @@ import Choose from '@/components/Choose'
 import Services from '@/components/Services'
 import Team from '@/components/Team'
 import Testimonial from '@/components/Testimonial'
+import Trusted from '@/components/Trusted'
 const page = () => {
   return (
     <div>
@@ -19,6 +20,7 @@ const page = () => {
       <Services/>
       <Team/>
       <Testimonial/>
+      <Trusted/>
     </div>
   )
 }

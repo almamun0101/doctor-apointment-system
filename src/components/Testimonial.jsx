@@ -24,8 +24,8 @@ const testimonials = [
 ];
 const Testimonial = () => {
   return (
-    <div className="container flex items-center justify-center flex-col py-30 gap-5 text-black dark:text-white ">
-      <h2 className="text-4xl text-pri font-medium ">Meet our team members </h2>
+    <div className="container flex items-center justify-center flex-col py-10 gap-5 text-black dark:text-white ">
+      <h2 className="text-4xl text-pri font-bold ">Meet our team members </h2>
       <p className="w-[413px] text-center font-light">
         Lorem ipsum dolor sit amet consectetur adipiscing elit semper dalar
         elementum tempus hac tellus libero accumsan.{" "}

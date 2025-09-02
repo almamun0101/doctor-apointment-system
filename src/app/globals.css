@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
 .container{
   max-width: 1200px;
   margin: 0 auto;
@@ -14,27 +15,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ededed; /* light background */
-  --foreground: #171717;
+  --background: red; /* light background */
+  --foreground: red;
 }
 
-.dark {
-  --background: #000000; /* dark background */
-  --foreground: #ededed;
-}
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
@@ -174,7 +159,7 @@ body {
 
   --radius: 0.625rem;
 
-  --background: oklch(1 0 0);
+  --background: #ededed;
 
   --foreground: oklch(0.145 0 0);
 
