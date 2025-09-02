@@ -4,9 +4,14 @@ import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import firebaseConfig from "@/app/firebase.config";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from 'next/router';
+
+
+
 // Helper function to merge class names
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
+  
 };
 
 const Button = ({
@@ -247,18 +252,21 @@ const DotMap = () => {
 };
 
 const SignInCard = () => {
+  const auth = getAuth();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleSIgnUp = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const handleSIgnUp = (e) => {
+    e.preventDefault()
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log("Create Successfully")
+         router.push('/signin');
       })
       .catch((error) => {
         const errorCode = error.code;

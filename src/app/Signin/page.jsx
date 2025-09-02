@@ -364,24 +364,7 @@ const SignInCard = () => {
 
             <form className="space-y-5">
              
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Name <span className="text-blue-500">*</span>
-                </label>
-                <Input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter your email address"
-                  required
-                  className="bg-gray-50 border-gray-200 placeholder:text-gray-400 text-gray-800 w-full focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-
+             
                <div>
                 <label
                   htmlFor="email"
