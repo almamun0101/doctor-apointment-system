@@ -3,7 +3,13 @@ import React, { useRef, useEffect, useState } from "react";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import firebaseConfig from "@/app/firebase.config";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getRedirectResult,
+} from "firebase/auth";
 import { useRouter } from "next/navigation";
 // Helper function to merge class names
 const cn = (...classes) => {
@@ -250,6 +256,8 @@ const DotMap = () => {
 const SignInCard = () => {
   const auth = getAuth();
   const router = useRouter();
+  const provider = new GoogleAuthProvider();
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -266,12 +274,28 @@ const SignInCard = () => {
       );
       console.log("Logged in:", userCredential.user);
 
-      
       router.push("/landing");
     } catch (err) {
       console.error(err.message);
       setError("Invalid email or password");
     }
+  };
+  const handleGoogleLogin = async () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        router.push("/landing");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        console.log(error);
+      });
   };
   return (
     <div className="flex w-full h-full items-center justify-center">
@@ -329,12 +353,12 @@ const SignInCard = () => {
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">
               Welcome
             </h1>
-            <p className="text-gray-500 mb-8">Create your account</p>
+            <p className="text-gray-500 mb-8">Login your account</p>
 
             <div className="mb-6">
               <button
                 className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-300 text-gray-700 shadow-sm"
-                onClick={() => console.log("Google sign-in")}
+                onClick={handleGoogleLogin}
               >
                 <svg className="h-5 w-5" viewBox="0 0 24 24">
                   <path
