@@ -10,6 +10,7 @@ export const doctorsList = [
     nextAvailable: "Today 2:00 PM",
     image:
       "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
+    bio: "Dr. Sarah Johnson is a leading cardiologist with over 15 years of experience specializing in cardiovascular health. She is dedicated to patient education and believes in a holistic approach to heart health, combining advanced medical treatments with lifestyle modifications. Her passion lies in preventive care and helping patients achieve long-term wellness.",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const doctorsList = [
     nextAvailable: "Tomorrow 10:00 AM",
     image:
       "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face",
+    bio: "Dr. Michael Chen is a board-certified neurologist who focuses on a range of conditions, including epilepsy, migraines, and neurodegenerative diseases. His research interests include improving heart function using devices such as left ventricular assist devices and he's an assistant professor of medicine at Yale University School of Medicine. He is known for his compassionate care and for staying at the forefront of neurological research to provide the best possible outcomes for his patients.",
   },
   {
     id: 3,
@@ -32,8 +34,9 @@ export const doctorsList = [
     location: "Children's Medical Center",
     available: true,
     nextAvailable: "Today 4:30 PM",
-    image:
-      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
+   image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
+      bio: "Dr. Emily Rodriguez is a highly respected pediatrician with a passion for helping children and their families. With 8 years of experience, she provides comprehensive care from infancy through adolescence. Her warm and gentle demeanor makes her a favorite among young patients, and she is a strong advocate for early childhood development and preventative health.",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ export const doctorsList = [
     nextAvailable: "Today 1:15 PM",
     image:
       "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
+    bio: "With two decades of experience, Dr. James Wilson is a top orthopedic surgeon specializing in sports-related injuries and joint replacement. He is a recognized authority in his field, having published numerous articles and trained countless residents. He combines his deep expertise with a patient-centered approach, aiming to restore mobility and quality of life for every individual he treats.",
   },
   {
     id: 5,
@@ -58,6 +62,7 @@ export const doctorsList = [
     nextAvailable: "Friday 9:00 AM",
     image:
       "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
+    bio: "Dr. Lisa Park is a dedicated dermatologist known for her expertise in both cosmetic and medical skin conditions. She has a decade of experience and a strong commitment to using the latest technologies and treatments to help her patients achieve healthy, radiant skin. Her philosophy is centered on creating personalized care plans that address each patient's unique needs and concerns.",
   },
   {
     id: 6,
@@ -70,9 +75,10 @@ export const doctorsList = [
     nextAvailable: "Today 3:45 PM",
     image:
       "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face",
+    bio: "Dr. Ahmed Hassan is a highly respected cardiologist with 18 years of experience in diagnosing and treating complex heart conditions. He is known for his patient-focused approach, taking the time to explain diagnoses and treatment options clearly. Dr. Hassan is committed to providing excellent care and has a special interest in preventative cardiology and interventional procedures.",
   },
   {
-    id: "D1001",
+    id: 7,
     name: "Dr. Arif Hossain",
     hospital: "Dhaka Medical Center",
     specialist: "Cardiologist",
@@ -80,9 +86,12 @@ export const doctorsList = [
     study: "Bangladesh Medical College",
     email: "arif.hossain@dmc.com",
     phone: "+8801711001001",
+    bio: "Dr. Arif Hossain is a seasoned Cardiologist with over a decade of experience in cardiac care. He is renowned for his expertise in both non-invasive and interventional cardiology procedures. A graduate of Bangladesh Medical College, he is dedicated to providing high-quality, personalized care to his patients.",
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1002",
+    id: 8,
     name: "Dr. Maria Rahman",
     hospital: "Square Hospital",
     specialist: "Dermatologist",
@@ -90,9 +99,12 @@ export const doctorsList = [
     study: "Dhaka University",
     email: "maria.rahman@square.com",
     phone: "+8801711001002",
+    bio: "A dermatologist with 9 years of experience, Dr. Maria Rahman specializes in medical and cosmetic dermatology. She focuses on treating skin, hair, and nail conditions and is known for her meticulous approach to patient care and a commitment to helping her patients achieve their aesthetic goals. Dr. Rahman is a graduate of Dhaka University.",
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1003",
+    id: 9,
     name: "Dr. Salman Chowdhury",
     hospital: "Apollo Hospitals Dhaka",
     specialist: "Orthopedic Surgeon",
@@ -100,9 +112,12 @@ export const doctorsList = [
     study: "Harvard Medical School",
     email: "salman.chowdhury@apollo.com",
     phone: "+8801711001003",
+    bio: "Dr. Salman Chowdhury is a highly-skilled orthopedic surgeon with 15 years of experience, specializing in joint replacements and complex trauma cases. He is a graduate of Harvard Medical School and is dedicated to using his expertise to restore mobility and function for his patients. His compassionate approach and focus on innovative surgical techniques make him a leader in his field.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1004",
+    id: 10,
     name: "Dr. Nabila Akter",
     hospital: "United Hospital",
     specialist: "Gynecologist",
@@ -110,9 +125,12 @@ export const doctorsList = [
     study: "Dhaka Medical College",
     email: "nabila.akter@united.com",
     phone: "+8801711001004",
+    bio: "Dr. Nabila Akter is a well-regarded gynecologist with 11 years of experience in women's health. Her practice covers a wide range of services, from routine check-ups to complex surgical procedures. A graduate of Dhaka Medical College, Dr. Akter is committed to providing comprehensive, empathetic care to her patients at every stage of their lives.",
+    image:
+      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1005",
+    id: 11,
     name: "Dr. Imran Karim",
     hospital: "Medinova Medical Services",
     specialist: "Neurologist",
@@ -120,9 +138,12 @@ export const doctorsList = [
     study: "King’s College London",
     email: "imran.karim@medinova.com",
     phone: "+8801711001005",
+    bio: "As a neurologist with 14 years of experience, Dr. Imran Karim has a deep understanding of the central nervous system. A graduate of King’s College London, he specializes in managing complex neurological disorders and is dedicated to providing his patients with effective treatment options and compassionate support.",
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1006",
+    id: 12,
     name: "Dr. Farzana Islam",
     hospital: "Popular Diagnostic Center",
     specialist: "Endocrinologist",
@@ -130,9 +151,12 @@ export const doctorsList = [
     study: "Rajshahi Medical College",
     email: "farzana.islam@popular.com",
     phone: "+8801711001006",
+    bio: "Dr. Farzana Islam is an endocrinologist with 8 years of experience, specializing in hormonal disorders, diabetes, and thyroid conditions. She is a graduate of Rajshahi Medical College and is committed to empowering her patients through education and personalized treatment plans. Her patient-centered approach ensures that each individual receives tailored care for their specific needs.",
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1007",
+    id: 13,
     name: "Dr. Tanvir Hasan",
     hospital: "Ibn Sina Hospital",
     specialist: "Psychiatrist",
@@ -140,9 +164,12 @@ export const doctorsList = [
     study: "Oxford University",
     email: "tanvir.hasan@ibnsina.com",
     phone: "+8801711001007",
+    bio: "With a decade of experience in psychiatry, Dr. Tanvir Hasan is a graduate of Oxford University. He offers a supportive and confidential environment for patients dealing with mental and emotional health challenges. He specializes in a range of conditions and is dedicated to helping his patients navigate their mental health journey with a personalized approach.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1008",
+    id: 14,
     name: "Dr. Sharmeen Jahan",
     hospital: "Labaid Hospital",
     specialist: "Oncologist",
@@ -150,9 +177,12 @@ export const doctorsList = [
     study: "Johns Hopkins University",
     email: "sharmeen.jahan@labaid.com",
     phone: "+8801711001008",
+    bio: "Dr. Sharmeen Jahan is an oncologist with 13 years of experience, specializing in cancer diagnosis and treatment. A graduate of Johns Hopkins University, she is at the forefront of innovative cancer therapies and is dedicated to providing her patients with the best possible care. She is known for her compassionate and collaborative approach, working closely with patients and their families to develop a comprehensive treatment plan.",
+    image:
+      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1009",
+    id: 15,
     name: "Dr. Mehedi Hasan",
     hospital: "Evercare Hospital Dhaka",
     specialist: "Pulmonologist",
@@ -160,9 +190,12 @@ export const doctorsList = [
     study: "Chittagong Medical College",
     email: "mehedi.hasan@evercare.com",
     phone: "+8801711001009",
+    bio: "Dr. Mehedi Hasan is a skilled pulmonologist with 7 years of experience, specializing in respiratory conditions such as asthma, COPD, and lung infections. A graduate of Chittagong Medical College, he is committed to providing accurate diagnoses and effective treatment plans. He is passionate about improving his patients' respiratory health and quality of life.",
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1010",
+    id: 16,
     name: "Dr. Nusrat Jahan",
     hospital: "Central Hospital",
     specialist: "Pediatrician",
@@ -170,9 +203,12 @@ export const doctorsList = [
     study: "Dhaka University",
     email: "nusrat.jahan@central.com",
     phone: "+8801711001010",
+    bio: "Dr. Nusrat Jahan is an experienced pediatrician with 16 years of practice, providing comprehensive healthcare for children. Her expertise spans from routine check-ups to managing complex pediatric illnesses. As a graduate of Dhaka University, she is dedicated to creating a comfortable and trusting environment for her young patients and their families.",
+    image:
+      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1011",
+    id: 17,
     name: "Dr. Rakibul Islam",
     hospital: "Holy Family Red Crescent Hospital",
     specialist: "ENT Specialist",
@@ -180,9 +216,12 @@ export const doctorsList = [
     study: "BSMMU",
     email: "rakibul.islam@redcrescent.com",
     phone: "+8801711001011",
+    bio: "Dr. Rakibul Islam is an ENT (Ear, Nose, and Throat) specialist with 9 years of experience. A graduate of BSMMU, he is skilled in diagnosing and treating a wide range of conditions affecting the head and neck. He is known for his thorough examinations and personalized treatment plans that focus on restoring his patients' health and well-being.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1012",
+    id: 18,
     name: "Dr. Sanjana Rahman",
     hospital: "Dhaka Shishu Hospital",
     specialist: "Child Specialist",
@@ -190,9 +229,12 @@ export const doctorsList = [
     study: "Rajshahi University",
     email: "sanjana.rahman@shishu.com",
     phone: "+8801711001012",
+    bio: "Dr. Sanjana Rahman is a highly experienced child specialist with 12 years of dedication to pediatric care. As a graduate of Rajshahi University, she is committed to providing compassionate and effective care for children of all ages. Her gentle approach and expertise in child health have made her a trusted name among parents.",
+    image:
+      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1013",
+    id: 19,
     name: "Dr. Ahsan Kabir",
     hospital: "BIRDEM Hospital",
     specialist: "Diabetologist",
@@ -200,9 +242,12 @@ export const doctorsList = [
     study: "Karolinska Institute",
     email: "ahsan.kabir@birdem.com",
     phone: "+8801711001013",
+    bio: "Dr. Ahsan Kabir is a leading diabetologist with 18 years of experience in managing diabetes and metabolic disorders. A graduate of the Karolinska Institute, he is known for his comprehensive approach, focusing on not just medication but also lifestyle management and patient education to help individuals control their condition and improve their quality of life.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1014",
+    id: 20,
     name: "Dr. Monira Akhter",
     hospital: "Ibn Sina Hospital",
     specialist: "Nephrologist",
@@ -210,9 +255,12 @@ export const doctorsList = [
     study: "Cambridge University",
     email: "monira.akhter@ibnsina.com",
     phone: "+8801711001014",
+    bio: "Dr. Monira Akhter is a highly skilled nephrologist with 10 years of experience in kidney disease and hypertension. A graduate of Cambridge University, she is dedicated to providing advanced and personalized care to patients with renal conditions. Her expertise and commitment to patient well-being have earned her a reputation as a trusted specialist.",
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1015",
+    id: 21,
     name: "Dr. Rashedul Hasan",
     hospital: "Square Hospital",
     specialist: "Urologist",
@@ -220,9 +268,12 @@ export const doctorsList = [
     study: "Bangladesh Medical College",
     email: "rashedul.hasan@square.com",
     phone: "+8801711001015",
+    bio: "Dr. Rashedul Hasan is a Urologist with 11 years of experience specializing in the diagnosis and treatment of conditions affecting the urinary tract and male reproductive system. A graduate of Bangladesh Medical College, he is dedicated to utilizing modern techniques and patient-centric care to achieve the best possible outcomes.",
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1016",
+    id: 22,
     name: "Dr. Sadia Karim",
     hospital: "Popular Diagnostic Center",
     specialist: "Radiologist",
@@ -230,9 +281,12 @@ export const doctorsList = [
     study: "Dhaka Medical College",
     email: "sadia.karim@popular.com",
     phone: "+8801711001016",
+    bio: "Dr. Sadia Karim is a dedicated radiologist with 7 years of experience in medical imaging and diagnostics. A graduate of Dhaka Medical College, she plays a crucial role in patient care by providing accurate and timely interpretations of medical images, assisting other physicians in making informed decisions about patient treatment.",
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1017",
+    id: 23,
     name: "Dr. Abdullah Al Mamun",
     hospital: "Evercare Hospital",
     specialist: "Hematologist",
@@ -240,9 +294,12 @@ export const doctorsList = [
     study: "Stanford University",
     email: "abdullah.mamun@evercare.com",
     phone: "+8801711001017",
+    bio: "Dr. Abdullah Al Mamun is a skilled hematologist with 14 years of experience, specializing in blood disorders and blood cancer. A graduate of Stanford University, he combines his expertise with a compassionate approach to provide comprehensive care to his patients. His commitment to research and innovative therapies makes him a trusted specialist in his field.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1018",
+    id: 24,
     name: "Dr. Tamanna Sultana",
     hospital: "Labaid Hospital",
     specialist: "Gastroenterologist",
@@ -250,9 +307,12 @@ export const doctorsList = [
     study: "Dhaka University",
     email: "tamanna.sultana@labaid.com",
     phone: "+8801711001018",
+    bio: "Dr. Tamanna Sultana is an expert gastroenterologist with 12 years of experience. A graduate of Dhaka University, she specializes in digestive system disorders and is known for her meticulous diagnostic skills and effective treatment plans. She provides a comfortable and professional environment for her patients, ensuring they receive the best care.",
+    image:
+      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1019",
+    id: 25,
     name: "Dr. Kazi Mahmud",
     hospital: "Medinova Medical Services",
     specialist: "Rheumatologist",
@@ -260,9 +320,12 @@ export const doctorsList = [
     study: "BSMMU",
     email: "kazi.mahmud@medinova.com",
     phone: "+8801711001019",
+    bio: "Dr. Kazi Mahmud is a rheumatologist with 8 years of experience, specializing in autoimmune and inflammatory conditions affecting the joints and muscles. A graduate of BSMMU, he is dedicated to helping his patients manage their pain and improve their mobility. He is known for his empathetic approach and commitment to long-term patient well-being.",
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop&crop=face",
   },
   {
-    id: "D1020",
+    id: 26,
     name: "Dr. Jannatul Ferdous",
     hospital: "Apollo Hospitals Dhaka",
     specialist: "Plastic Surgeon",
@@ -270,5 +333,8 @@ export const doctorsList = [
     study: "Mayo Clinic College of Medicine",
     email: "jannatul.ferdous@apollo.com",
     phone: "+8801711001020",
+    bio: "Dr. Jannatul Ferdous is a highly sought-after plastic surgeon with 15 years of experience in both reconstructive and cosmetic surgery. A graduate of the Mayo Clinic College of Medicine, she is known for her artistic eye and precision. She works closely with each patient to understand their goals and deliver exceptional, natural-looking results.",
+    image:
+      "https://images.unsplash.com/photo-1594824286060-d4b2b12b5a77?w=150&h=150&fit=crop&crop=face",
   },
 ];

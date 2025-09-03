@@ -3,14 +3,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser, clearUser, loadUserFromStorage } from "../store/userSlice";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import { loadDoctorFromStorage } from "../store/doctorSlice";
 import firebaseConfig from "../firebase.config";
 export default function AuthProvider({ children }) {
   const dispatch = useDispatch();
   const auth = getAuth();
 
-  useEffect(() => {
-    // Load from localStorage first (avoids mismatch)
+   useEffect(() => {
+    // Load user from storage first
     dispatch(loadUserFromStorage());
 
     // Sync with Firebase

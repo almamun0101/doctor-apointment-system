@@ -161,9 +161,7 @@ export default function DoctorSearchSystem() {
           </div>
         </div>
 
-        {/* Search Results */}
-
-        {/* {searchName && (
+      {searchName && (
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-semibold text-gray-800">
@@ -202,36 +200,17 @@ export default function DoctorSearchSystem() {
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="grid grid-cols-3 gap-3">
                 {filteredDoctors.slice(0, 3).map((doctor) => (
-                  <DoctorCard key={doctor.id} doctor={doctor} />
+                  
+
+                    <DoctorCard key={doctor.id} doctor={doctor} />
+                  
                 ))}
               </div>
             )}
           </div>
-        )} */}
-
-        {/* Quick Filters */}
-        {/* <div className="mt-6 bg-white rounded-2xl shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
-            Quick Filters
-          </h3>
-          <div className="flex flex-wrap gap-3">
-            {specializations.slice(1).map((spec) => (
-              <button
-                key={spec}
-                onClick={() => setSelectedSpecialization(spec)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  selectedSpecialization === spec
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {spec}
-              </button>
-            ))}
-          </div>
-        </div> */}
+        )}
       </div>
     </div>
   );
