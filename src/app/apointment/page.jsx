@@ -148,8 +148,6 @@ export default function DoctorAppointment() {
         .substring(2, 11)
         .toUpperCase()}`;
 
-    
-
       set(push(ref(db, "apointment/")), {
         patientName: user.name,
         contact: patientContact,
@@ -157,10 +155,10 @@ export default function DoctorAppointment() {
         doctorid: doctorSelect.id,
         date: selectedDate.toLocaleString(),
         schedule: selectedTime,
-        bookingId : newBookingId,
+        bookingId: newBookingId,
       })
         .then(() => {
-          toast.success("Apoinment Sucussfull")
+          toast.success("Apoinment Sucussfull");
           setBookingId(newBookingId);
           setBookingConfirmed(true);
         })
@@ -250,7 +248,7 @@ export default function DoctorAppointment() {
   return (
     <div className="flex justify-center p-4 py-10 container">
       <main className="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row gap-10 overflow-hidden w-full max-w-6xl">
-        <Toaster/>
+        <Toaster />
         {/* Left: Doctor Info + Search */}
 
         <div className="w-full md:w-1/3 bg-indigo-50 p-6 flex flex-col">
@@ -433,31 +431,62 @@ export default function DoctorAppointment() {
               <h4 className="font-semibold text-gray-700 mb-2">
                 Patient Details
               </h4>
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  value={patientName}
-                  onChange={(e) => setPatientName(e.target.value)}
-                  required
-                  placeholder="e.g., John Doe"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                />
+              <div className="flex justify-between w-full items-center gap-5">
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={patientName}
+                    onChange={(e) => setPatientName(e.target.value)}
+                    required
+                    placeholder="e.g., John Doe"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    Phone Number or Email
+                  </label>
+                  <input
+                    type="text"
+                    value={patientContact}
+                    onChange={(e) => setPatientContact(e.target.value)}
+                    required
+                    placeholder="Your contact info"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">
-                  Phone Number or Email
-                </label>
-                <input
-                  type="text"
-                  value={patientContact}
-                  onChange={(e) => setPatientContact(e.target.value)}
-                  required
-                  placeholder="Your contact info"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                />
+
+              <div className="flex justify-between gap-5">
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    Type
+                  </label>
+                  <input
+                    type="text"
+                    value={patientContact}
+                    onChange={(e) => setPatientContact(e.target.value)}
+                    required
+                    placeholder="Your contact info"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    Comment
+                  </label>
+                  <input
+                    type="text"
+                    value={patientContact}
+                    onChange={(e) => setPatientContact(e.target.value)}
+                    required
+                    placeholder="Your contact info"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
               </div>
               <button
                 type="submit"
