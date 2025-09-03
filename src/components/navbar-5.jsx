@@ -1,5 +1,12 @@
 "use client";
-
+import {
+  Dropdown,
+  DropdownContent,
+  DropdownItem,
+  DropdownSeparator,
+  DropdownTrigger,
+} from "@/components/ui/basic-dropdown";
+import { CreditCard, LogOut, Settings, UserCircle } from "lucide-react";
 import { MenuIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -64,15 +71,16 @@ const features = [
 ];
 export const Navbar5 = () => {
   const auth = getAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const router = useRouter();
 
   const handleLogout = async () => {
-  await signOut(auth);
-  dispatch(clearUser());
-  router.push("/signin"); // redirect
-};
+    await signOut(auth);
+    dispatch(clearUser());
+    router.push("/signin"); // redirect
+  };
+ 
 
   return (
     <section className="py-4">
@@ -146,8 +154,40 @@ export const Navbar5 = () => {
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
             <ModeToggle />
-            <Button variant="outline"  onClick={handleLogout}>Logout</Button>
-            <Button className="rounded-full h-10">{user?.name}</Button>
+            <Button variant="outline" onClick={handleLogout}>
+              Logout
+            </Button>
+
+            {/* profile dropdown */}
+            <Dropdown>
+              <DropdownTrigger className="cursor-pointer">
+                <img
+                  src={user?.photo}
+                  alt="User avatar"
+                  className="h-10 w-10 rounded-full border-2 border-border hover:border-primary transition-colors"
+                />
+
+              </DropdownTrigger>
+              <DropdownContent align="end" className="w-56">
+                <DropdownItem className="gap-2">
+                  <UserCircle className="h-4 w-4" />
+                  Profile
+                </DropdownItem>
+                <DropdownItem className="gap-2">
+                  <CreditCard className="h-4 w-4" />
+                  Billing
+                </DropdownItem>
+                <DropdownItem className="gap-2">
+                  <Settings className="h-4 w-4" />
+                  Settings
+                </DropdownItem>
+                <DropdownSeparator />
+                <DropdownItem className="gap-2" destructive>
+                  <LogOut className="h-4 w-4" />
+                  Log out
+                </DropdownItem>
+              </DropdownContent>
+            </Dropdown>
           </div>
           <Sheet>
             <SheetTrigger asChild className="lg:hidden">

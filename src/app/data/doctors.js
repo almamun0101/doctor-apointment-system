@@ -2,7 +2,7 @@ export const doctorsList = [
   {
     id: 1,
     name: "Dr. Sarah Johnson",
-    specialization: "Cardiology",
+    specialist: "Cardiology",
     experience: "15 years",
     rating: 4.8,
     location: "Downtown Medical Center",
@@ -15,7 +15,7 @@ export const doctorsList = [
   {
     id: 2,
     name: "Dr. Michael Chen",
-    specialization: "Neurology",
+    specialist: "Neurology",
     experience: "12 years",
     rating: 4.9,
     location: "City Hospital",
@@ -28,20 +28,20 @@ export const doctorsList = [
   {
     id: 3,
     name: "Dr. Emily Rodriguez",
-    specialization: "Pediatrics",
+    specialist: "Pediatrics",
     experience: "8 years",
     rating: 4.7,
     location: "Children's Medical Center",
     available: true,
     nextAvailable: "Today 4:30 PM",
-   image:
+    image:
       "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face",
-      bio: "Dr. Emily Rodriguez is a highly respected pediatrician with a passion for helping children and their families. With 8 years of experience, she provides comprehensive care from infancy through adolescence. Her warm and gentle demeanor makes her a favorite among young patients, and she is a strong advocate for early childhood development and preventative health.",
+    bio: "Dr. Emily Rodriguez is a highly respected pediatrician with a passion for helping children and their families. With 8 years of experience, she provides comprehensive care from infancy through adolescence. Her warm and gentle demeanor makes her a favorite among young patients, and she is a strong advocate for early childhood development and preventative health.",
   },
   {
     id: 4,
     name: "Dr. James Wilson",
-    specialization: "Orthopedics",
+    specialist: "Orthopedics",
     experience: "20 years",
     rating: 4.6,
     location: "Sports Medicine Clinic",
@@ -54,7 +54,7 @@ export const doctorsList = [
   {
     id: 5,
     name: "Dr. Lisa Park",
-    specialization: "Dermatology",
+    specialist: "Dermatology",
     experience: "10 years",
     rating: 4.8,
     location: "Skin Care Center",
@@ -67,7 +67,7 @@ export const doctorsList = [
   {
     id: 6,
     name: "Dr. Ahmed Hassan",
-    specialization: "Cardiology",
+    specialist: "Cardiology",
     experience: "18 years",
     rating: 4.9,
     location: "Heart Institute",

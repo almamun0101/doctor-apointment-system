@@ -19,7 +19,7 @@ const page = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const dispatch = useDispatch();
-  console.log(user);
+
 
 
    useEffect(() => {
