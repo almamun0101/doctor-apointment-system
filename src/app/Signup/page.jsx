@@ -8,8 +8,10 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 // Helper function to merge class names
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
@@ -255,6 +257,7 @@ const DotMap = () => {
 const SignInCard = () => {
   const auth = getAuth();
   const router = useRouter();
+  const db = getDatabase();
   const [role, setRole] = useState("patient");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [name, setName] = useState("");
@@ -262,22 +265,29 @@ const SignInCard = () => {
   const [password, setPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
 
-  console.log(role);
+
 
   const handleSIgnUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
+        const user = userCredential.user;
         setName("");
         setEmail("");
         setRole("patient");
         setPassword("");
+
         updateProfile(auth.currentUser, {
           displayName: name,
-          role: role,
           photoURL: "https://example.com/jane-q-user/profile.jpg",
         })
           .then(() => {
+            set(ref(db, "patients/" + user.uid), {
+              username: name,
+              email: email,
+              profile_picture: "https://example.com/jane-q-user/profile.jpg",
+              role: role,
+            });
             toast.success("Account Create Successfully");
             router.push("/signin");
           })
@@ -303,7 +313,7 @@ const SignInCard = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-4xl overflow-hidden rounded-2xl flex bg-white shadow-xl"
       >
-           <Toaster />
+        <Toaster />
         {/* Left side - Map */}
         <div className="hidden md:block w-1/2  relative overflow-hidden border-r border-gray-100">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -522,12 +532,12 @@ const SignInCard = () => {
 
               <div className="text-center mt-6">
                 Already Have Account
-                <a
-                  href="#"
+                <Link
+                  href="/signin"
                   className="text-blue-600 hover:text-blue-700 text-lg px-2 underline transition-colors"
                 >
                   Sign in
-                </a>
+                </Link>
               </div>
             </form>
           </motion.div>
