@@ -10,8 +10,10 @@ import {
   signInWithPopup,
   getRedirectResult,
 } from "firebase/auth";
+
+import { getDatabase, ref, onValue, get,set } from "firebase/database";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { setUser } from "../store/userSlice";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
@@ -259,15 +261,26 @@ const DotMap = () => {
 
 const SignInCard = () => {
   const auth = getAuth();
+  const db = getDatabase();
   const router = useRouter();
   const provider = new GoogleAuthProvider();
   const dispatch = useDispatch();
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [error, setError] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHovered, setIsHovered] = useState(false);
+  const [role, setRole] = useState("patients");
+
+  const readFromDb = (uid) => {
+    const starCountRef = ref(ref(db, `${role}/${user.uid}`));
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      updateStarCount(postElement, data);
+    });
+  };
 
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -277,26 +290,80 @@ const SignInCard = () => {
         email,
         password
       );
-      console.log("Logged in:", userCredential.user);
+      const user = userCredential.user;
 
-      router.push("/landing");
+      // References to roles
+      const patientRef = ref(db, `patients/${user.uid}`);
+      const doctorRef = ref(db, `doctors/${user.uid}`);
+
+      let dbRole = null;
+
+      const patientSnap = await get(patientRef);
+      if (patientSnap.exists()) dbRole = "patients";
+
+      const doctorSnap = await get(doctorRef);
+      if (doctorSnap.exists()) dbRole = "doctors";
+
+      if (!dbRole) throw new Error("Role not found in database");
+
+      // Check if selected role matches dbRole
+      if (dbRole !== role) {
+        toast.error("Selected role does not match your account role");
+        return;
+      }
+
+      // ✅ Role matches, login success
+      dispatch(setUser({ uid: user.uid, email: user.email, role: dbRole }));
+      router.push(`/${dbRole}/`);
     } catch (err) {
-      toast.error('Invail User');
-      console.log(err.message);
-      setError("Invalid email or password");
+      toast.error("Invalid credentials or role mismatch");
+      console.log("Login error:", err.message);
     }
   };
+
+  // Google login
   const handleGoogleLogin = async () => {
-    signInWithPopup(auth, provider)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        dispatch(setUser({ user }));
-        router.push("/landing");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      // References to roles
+      const patientRef = ref(db, `patients/${user.uid}`);
+      const doctorRef = ref(db, `doctors/${user.uid}`);
+
+      let dbRole = null;
+
+      const patientSnap = await get(patientRef);
+      if (patientSnap.exists()) dbRole = "patients";
+
+      const doctorSnap = await get(doctorRef);
+      if (doctorSnap.exists()) dbRole = "doctors";
+
+      if (dbRole) {
+        // Existing user: check role
+        if (dbRole !== role) {
+          toast.error("Selected role does not match your account role");
+          return;
+        }
+      } else {
+        // New user: save selected role in DB
+        const userData = { email: user.email, uid: user.uid };
+        if (role === "patients") {
+          await set(ref(db, `patients/${user.uid}`), userData);
+        } else {
+          await set(ref(db, `doctors/${user.uid}`), userData);
+        }
+        dbRole = role;
+      }
+
+      dispatch(setUser({ uid: user.uid, email: user.email, role: dbRole }));
+      router.push(`/${dbRole}/`);
+    } catch (err) {
+      console.log(err);
+      toast.error("Google login failed");
+    }
   };
+
   return (
     <div className="flex w-full h-full items-center justify-center">
       <motion.div
@@ -305,7 +372,7 @@ const SignInCard = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-4xl overflow-hidden rounded-2xl flex bg-white shadow-xl"
       >
-         <Toaster />
+        <Toaster />
         {/* Left side - Map */}
         <div className="hidden md:block w-1/2  relative overflow-hidden border-r border-gray-100">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -351,11 +418,35 @@ const SignInCard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-2xl md:text-3xl font-bold mb-1 text-gray-800">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
               Welcome
             </h1>
-            <p className="text-gray-500 mb-8">Login your account</p>
+            <p className="text-gray-500 ">Login your account</p>
+            <div className="flex items-center justify-center gap-6 py-5">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="role"
+                  value="patients"
+                  checked={role === "patients"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="accent-blue-600"
+                />
+                <span>Patient</span>
+              </label>
 
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="role"
+                  value="doctors"
+                  checked={role === "doctors"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="accent-blue-600"
+                />
+                <span>Doctor</span>
+              </label>
+            </div>
             <div className="mb-6">
               <button
                 className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3 hover:bg-gray-100 transition-all duration-300 text-gray-700 shadow-sm"
