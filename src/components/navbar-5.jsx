@@ -89,7 +89,7 @@ export const Navbar5 = () => {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/patients"
                   className={navigationMenuTriggerStyle()}
                 >
                   Home
@@ -120,7 +120,7 @@ export const Navbar5 = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/apointment"
                   className={navigationMenuTriggerStyle()}
                 >
                   AppoinentMent
@@ -128,7 +128,7 @@ export const Navbar5 = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/contact"
                   className={navigationMenuTriggerStyle()}
                 >
                   Contact Us
@@ -136,7 +136,7 @@ export const Navbar5 = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="#"
+                  href="/help"
                   className={navigationMenuTriggerStyle()}
                 >
                   Help

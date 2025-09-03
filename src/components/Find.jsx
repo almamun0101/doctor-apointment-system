@@ -163,7 +163,7 @@ export default function DoctorSearchSystem() {
 
         {/* Search Results */}
 
-        {searchName && (
+        {/* {searchName && (
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-semibold text-gray-800">
@@ -209,7 +209,7 @@ export default function DoctorSearchSystem() {
               </div>
             )}
           </div>
-        )}
+        )} */}
 
         {/* Quick Filters */}
         {/* <div className="mt-6 bg-white rounded-2xl shadow-lg p-6">
