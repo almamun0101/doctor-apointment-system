@@ -150,7 +150,7 @@ export default function DoctorAppointment() {
 
     
 
-      set(push(ref(db, "/apointment/")), {
+      set(push(ref(db, "apointment/")), {
         patientName: user.name,
         contact: patientContact,
         doctorName: doctorSelect.name,

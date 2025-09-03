@@ -4,7 +4,7 @@ const page = () => {
   return (
     <div>
       {/* <Home /> */}
-     <Signup/>
+     {/* <Signup/> */}
     </div>
   );
 };

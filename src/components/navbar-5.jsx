@@ -80,7 +80,6 @@ export const Navbar5 = () => {
     dispatch(clearUser());
     router.push("/signin"); // redirect
   };
- 
 
   return (
     <section className="py-4">
@@ -154,9 +153,7 @@ export const Navbar5 = () => {
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
             <ModeToggle />
-            <Button variant="outline" onClick={handleLogout}>
-              Logout
-            </Button>
+        
 
             {/* profile dropdown */}
             <Dropdown>
@@ -167,9 +164,10 @@ export const Navbar5 = () => {
                   className="h-10 w-10 rounded-full border-2 border-border hover:border-primary transition-colors"
                 />
 
+
               </DropdownTrigger>
               <DropdownContent align="end" className="w-56">
-                <DropdownItem className="gap-2">
+                <DropdownItem className="gap-2" onClick={()=>router.push("/patientDashboard")}>
                   <UserCircle className="h-4 w-4" />
                   Profile
                 </DropdownItem>
@@ -182,7 +180,7 @@ export const Navbar5 = () => {
                   Settings
                 </DropdownItem>
                 <DropdownSeparator />
-                <DropdownItem className="gap-2" destructive>
+                <DropdownItem  onClick={handleLogout} className="gap-2" destructive>
                   <LogOut className="h-4 w-4" />
                   Log out
                 </DropdownItem>
