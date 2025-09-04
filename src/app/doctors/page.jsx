@@ -73,7 +73,7 @@ const Page = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-10">
       {/* Header */}
       <div className="bg-gradient-to-r from-green-600 to-green-800 text-white p-6 rounded-lg">
         <h1 className="text-2xl font-bold mb-2">Doctor Dashboard</h1>

@@ -11,7 +11,6 @@ export default function RootLayout({ children }) {
     <Provider store={store}>
       <AuthProvider>
         <Navbar5 />
-
         {children}
         <Footer />
       </AuthProvider>

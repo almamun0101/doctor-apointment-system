@@ -253,15 +253,18 @@ export const Navbar5 = () => {
                     Help
                   </a>
                 </div>
-                <div className="mt-6 flex flex-col gap-4">
-                  <Link href="/patientDashboard">
+                <div className="mt-6 flex justify-between items-center gap-4">
+                  <Link href="/patientDashboard" className="flex  items-center gap-10 border border-black/20 justify-around w-full p-2 rounded-2xl">
                     {" "}
                     <img
                       src={user?.photo}
                       alt="User avatar"
                       className="h-10 w-10 rounded-full border-2 border-border hover:border-primary transition-colors"
-                    />
+                    /> Profile 
                   </Link>
+                  <button className="w-full border border-black/20 p-4 rounded-2xl"  onClick={handleLogout}>
+                          Logout
+                  </button>
                 </div>
               </div>
             </SheetContent>
