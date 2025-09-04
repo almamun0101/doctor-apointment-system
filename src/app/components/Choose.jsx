@@ -2,8 +2,8 @@ import React from "react";
 
 const Choose = () => {
   return (
-    <div className="container flex flex-wrap justify-between items-center gap-10">
-      <div className="flex flex-col gap-10  w-[455px]">
+    <div className="container  flex flex-wrap justify-center md:justify-between items-center gap-10">
+      <div className="flex py-10 flex-col gap-10  w-[455px] text-center mx-auto">
         <h2 className="text-pri text-3xl font-bold landing-12">
           You have lots of reasons to choose us
         </h2>

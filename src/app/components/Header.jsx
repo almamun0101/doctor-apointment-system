@@ -12,7 +12,7 @@ const avatarUrls = [
 const Header = () => {
 const user = useSelector((state) => state.user.currentUser);
   return (
-    <div className="container flex flex-wrap justify-between items-center gap-10">
+    <div className="container flex flex-wrap justify-center md:justify-between items-center gap-10">
        <div className="flex flex-col gap-10">
         <h1 className="text-4xl font-medium leading-12 w-auto lg:w-[657px]">
           Providing Quality <span className="text-pri"> Healthcare</span> for A

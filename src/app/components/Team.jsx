@@ -49,7 +49,7 @@ const Team = () => {
   return (
     <div>
       <div className="container flex items-center justify-center flex-col py-30 gap-5 text-black dark:text-white ">
-        <h2 className="text-4xl text-pri font-medium ">
+        <h2 className="text-4xl pt-20  text-pri font-medium ">
           Meet our team members{" "}
         </h2>
         <p className="w-[413px] text-center font-light">

@@ -35,8 +35,8 @@ const services = [
 ];
 const Services = () => {
   return (
-    <div className="container flex items-center justify-center flex-col py-30 gap-5 text-black dark:text-white ">
-      <h2 className="text-4xl text-pri font-medium ">Services we provide </h2>
+    <div className="container  flex items-center justify-center flex-col py-30 gap-5 text-black dark:text-white ">
+      <h2 className="text-4xl pt-20 text-pri font-medium ">Services we provide </h2>
       <p className="w-[413px] text-center font-light">
         Lorem ipsum dolor sit amet consectetur adipiscing elit semper dalar
         elementum tempus hac tellus libero accumsan.{" "}

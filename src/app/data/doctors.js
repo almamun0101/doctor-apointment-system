@@ -1,7 +1,7 @@
 export const doctorsList = [
   {
     id: 1,
-    name: "Dr. Sarah Johnson",
+    name: "Al Mamun Khan",
     specialist: "Cardiology",
     experience: "15 years",
     rating: 4.8,

@@ -11,7 +11,7 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 
-import { getDatabase, ref, onValue, get,set } from "firebase/database";
+import { getDatabase, ref, onValue, get, set } from "firebase/database";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { setUser } from "../store/userSlice";
@@ -314,7 +314,11 @@ const SignInCard = () => {
 
       // ✅ Role matches, login success
       dispatch(setUser({ uid: user.uid, email: user.email, role: dbRole }));
-      router.push(`/${dbRole}/`);
+      if (role === "patient") {
+        router.push(`/landingPage`);
+      } else {
+        router.push(`/doctors`);
+      }
     } catch (err) {
       toast.error("Invalid credentials or role mismatch");
       console.log("Login error:", err.message);
@@ -357,7 +361,16 @@ const SignInCard = () => {
       }
 
       dispatch(setUser({ uid: user.uid, email: user.email, role: dbRole }));
-      router.push(`/${dbRole}/`);
+      if (role === "patients") {
+        router.push(`/landingPage`);
+
+      } 
+      else if(role ==="doctors") {
+        router.push(`/doctors`);
+      }
+      else {
+        router.push(404)
+      }
     } catch (err) {
       console.log(err);
       toast.error("Google login failed");

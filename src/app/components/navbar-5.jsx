@@ -5,7 +5,7 @@ import {
   DropdownItem,
   DropdownSeparator,
   DropdownTrigger,
-} from "@/components/ui/basic-dropdown";
+} from "@/app/components/ui/basic-dropdown";
 import { CreditCard, LogOut, Settings, UserCircle } from "lucide-react";
 import { MenuIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -14,8 +14,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+} from "@/app/components/ui/accordion";
+import { Button } from "@/app/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,14 +24,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+} from "@/app/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/app/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser, setUser } from "@/app/store/userSlice";

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Switch as AriaSwitch, composeRenderProps } from "react-aria-components";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/app/components/lib/utils"
 
 const Switch = ({
   children,
