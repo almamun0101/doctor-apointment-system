@@ -46,7 +46,7 @@ const page = () => {
 
 
   return (
-    <div>
+    <div className="">
       <Navbar5 userinfo={auth} />
       <Header />
       <Find />

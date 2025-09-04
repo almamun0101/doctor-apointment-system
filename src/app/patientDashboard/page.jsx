@@ -20,34 +20,19 @@ import { getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getDatabase, onValue, ref } from "firebase/database";
+import Link from "next/link";
 
 const page = () => {
-  const db = getDatabase()
+  const db = getDatabase();
   const auth = getAuth();
   const patient = useSelector((state) => state.user.currentUser);
   const router = useRouter();
-  const [myApointment,setMyApoinment ] = useState([])
+  const [myApointment, setMyApoinment] = useState([]);
   const [activeView, setActiveView] = useState("doctor"); // 'patient' or 'doctor'
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   );
 
-  const patientData = {
-    id: "P001",
-    name: "Sarah Johnson",
-    age: 32,
-    gender: "Female",
-    phone: "+1 (555) 123-4567",
-    email: "sarah.johnson@email.com",
-    address: "123 Main St, New York, NY 10001",
-    bloodType: "A+",
-    allergies: ["Penicillin", "Shellfish"],
-    emergencyContact: {
-      name: "John Johnson",
-      relationship: "Spouse",
-      phone: "+1 (555) 987-6543",
-    },
-  };
 
   const appointments = [
     {
@@ -91,28 +76,27 @@ const page = () => {
       date: "2025-09-04",
     },
   ];
- 
+
   useEffect(() => {
-  const starCountRef = ref(db, "apointment/");
+    const starCountRef = ref(db, "apointment/");
 
-  const unsubscribe = onValue(starCountRef, (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      // convert object to array with id + values
-      const array = Object.entries(data).map(([id, value]) => ({
-        id,
-        ...value,
-      }));
-      setMyApoinment(array);
-      console.log(array);
-    } else {
-      setMyApoinment([]); // empty fallback
-    }
-  });
+    const unsubscribe = onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        // convert object to array with id + values
+        const array = Object.entries(data).map(([id, value]) => ({
+          id,
+          ...value,
+        }));
+        setMyApoinment(array);
+        console.log(array);
+      } else {
+        setMyApoinment([]); // empty fallback
+      }
+    });
 
-  return () => unsubscribe(); // cleanup listener
-}, []);
-
+    return () => unsubscribe(); // cleanup listener
+  }, []);
 
   const doctorStats = {
     todayAppointments: appointments.filter((apt) => apt.date === selectedDate)
@@ -152,57 +136,57 @@ const page = () => {
               <div className="space-y-3 pt-4 border-t">
                 <div className="flex items-center text-sm">
                   <span className="font-medium w-20">Age:</span>
-                  <span className="text-gray-600">{patientData.age} years</span>
+                  <span className="text-gray-600">{patient?.age} years</span>
                 </div>
                 <div className="flex items-center text-sm">
                   <span className="font-medium w-20">Gender:</span>
-                  <span className="text-gray-600">{patientData.gender}</span>
+                  <span className="text-gray-600">{patient?.gender}</span>
                 </div>
                 <div className="flex items-center text-sm">
                   <span className="font-medium w-20">Blood Type:</span>
-                  <span className="text-gray-600">{patientData.bloodType}</span>
+                  <span className="text-gray-600">{patient?.bloodType}</span>
                 </div>
               </div>
 
               <div className="space-y-3 pt-4 border-t">
                 <div className="flex items-start text-sm">
                   <Phone className="h-4 w-4 mt-0.5 mr-3 text-gray-400" />
-                  <span className="text-gray-600">{patientData.phone}</span>
+                  <span className="text-gray-600">{patient?.phone}</span>
                 </div>
                 <div className="flex items-start text-sm">
                   <Mail className="h-4 w-4 mt-0.5 mr-3 text-gray-400" />
-                  <span className="text-gray-600">{patientData.email}</span>
+                  <span className="text-gray-600">{patient?.email}</span>
                 </div>
                 <div className="flex items-start text-sm">
                   <MapPin className="h-4 w-4 mt-0.5 mr-3 text-gray-400" />
-                  <span className="text-gray-600">{patientData.address}</span>
+                  <span className="text-gray-600">{patient?.address}</span>
                 </div>
               </div>
 
               <div className="pt-4 border-t">
                 <h4 className="font-medium text-sm mb-2">Allergies</h4>
                 <div className="flex flex-wrap gap-2">
-                  {patientData.allergies.map((allergy, index) => (
+                  {/* {patient?.allergies.map((allergy, index) => (
                     <span
                       key={index}
                       className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full"
                     >
                       {allergy}
                     </span>
-                  ))}
+                  ))} */}
                 </div>
               </div>
 
-              <div className="pt-4 border-t">
+              {/* <div className="pt-4 border-t">
                 <h4 className="font-medium text-sm mb-2">Emergency Contact</h4>
                 <div className="text-sm text-gray-600">
                   <p>
-                    {patientData.emergencyContact.name} (
-                    {patientData.emergencyContact.relationship})
+                    {patient?.emergencyContact.name} (
+                    {patient?.emergencyContact.relationship})
                   </p>
-                  <p>{patientData.emergencyContact.phone}</p>
+                  <p>{patient?.emergencyContact.phone}</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -215,50 +199,57 @@ const page = () => {
                 <Calendar className="h-5 w-5 text-blue-600 mr-2" />
                 <h2 className="text-lg font-semibold">My Appointments</h2>
               </div>
-              <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <Link
+                href="/apointment"
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
                 <Plus className="h-4 w-4 mr-2" />
-                Book New
-              </button>
+                New
+              </Link>
             </div>
 
             <div className="space-y-4">
-              {appointments
-                .filter((apt) => apt.patientName === patientData.name)
-                .map((appointment) => (
-                  <div
-                    key={appointment.id}
-                    className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full">
-                          <Stethoscope className="h-5 w-5 text-blue-600" />
+              {myApointment
+                .filter((apt) => apt.patientName === patient.name)
+                .map((appointment) => {
+                  const d = new Date(appointment.date); 
+
+                  return (
+                    <div
+                      key={appointment.bookingId}
+                      className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4">
+                          <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full">
+                            <Stethoscope className="h-5 w-5 text-blue-600" />
+                          </div>
+                          <div>
+                            <h3 className="font-medium">{appointment.type}</h3>
+                            <p className="text-sm text-gray-600">
+                              with {appointment.doctorName}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-medium">{appointment.type}</h3>
-                          <p className="text-sm text-gray-600">
-                            with {appointment.doctorName}
-                          </p>
+                        <div className="text-right">
+                          <div className="flex items-center text-sm text-gray-600 mb-1">
+                            <Clock className="h-4 w-4 mr-1" />
+                            {appointment.schedule} ({appointment.duration})
+                          </div>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs ${
+                              appointment.status === "confirmed"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-yellow-100 text-yellow-700"
+                            }`}
+                          >
+                            {d.toDateString()}
+                          </span>
                         </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="flex items-center text-sm text-gray-600 mb-1">
-                          <Clock className="h-4 w-4 mr-1" />
-                          {appointment.schedule} ({appointment.duration})
-                        </div>
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            appointment.status === "confirmed"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
-                          }`}
-                        >
-                          {appointment.status}
-                        </span>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
             </div>
           </div>
 

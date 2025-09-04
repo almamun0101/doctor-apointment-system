@@ -52,7 +52,9 @@ export default function DoctorAppointment() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
-  const [patientName, setPatientName] = useState("");
+  const [patientName, setPatientName] = useState(user?.name);
+  const [treatmentType, settreatmentType] = useState("");
+  const [comment, setComment] = useState("");
   const [patientContact, setPatientContact] = useState("");
   const [bookingId, setBookingId] = useState(null);
 
@@ -156,6 +158,8 @@ export default function DoctorAppointment() {
         date: selectedDate.toLocaleString(),
         schedule: selectedTime,
         bookingId: newBookingId,
+        type:treatmentType,
+        comment:comment,
       })
         .then(() => {
           toast.success("Apoinment Sucussfull");
@@ -465,14 +469,15 @@ export default function DoctorAppointment() {
                   <label className="block text-sm font-medium text-gray-600 mb-1">
                     Type
                   </label>
-                  <input
-                    type="text"
-                    value={patientContact}
-                    onChange={(e) => setPatientContact(e.target.value)}
-                    required
-                    placeholder="Your contact info"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-                  />
+                 <select onChange={(e)=>settreatmentType(e.target.value)} className="border text-gray-400 w-full px-5  p-3 rounded-2xl">
+                  <option value="0" >Select Type</option>
+                  <option value="Check Up" >Check Up</option>
+                  <option value="Consultation" >Consultation</option>
+                  <option value="Report Visit" >Report Visit</option>
+                  <option value="Follow Up" >Follow Up</option>
+                  <option value="Others" >Others</option>
+
+                 </select>
                 </div>
                 <div className="w-full">
                   <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -480,10 +485,10 @@ export default function DoctorAppointment() {
                   </label>
                   <input
                     type="text"
-                    value={patientContact}
-                    onChange={(e) => setPatientContact(e.target.value)}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                     required
-                    placeholder="Your contact info"
+                    placeholder="Any Comment"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
