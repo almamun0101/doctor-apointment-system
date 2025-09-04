@@ -200,7 +200,7 @@ export default function DoctorSearchSystem() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {filteredDoctors.slice(0, 3).map((doctor) => (
                   
 

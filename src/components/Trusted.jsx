@@ -18,7 +18,7 @@ const Trusted = () => {
         Trusted by 10,000+ companies around the world
       </h2>
 
-      <div className="w-full">
+      <div className="w-3/4">
         <Responsive items={companies} />
       </div>
 
@@ -26,8 +26,8 @@ const Trusted = () => {
         <h2 className="py-5 text-3xl text-black font-bold">
           Subscribe to our newsletter
         </h2>
-        <div className="flex gap-10">
-        <input type="text" className="bg-white w-[533px] px-10 py-3 rounded-3xl mx-auto" placeholder="Enter your email"/>
+        <div className="flex flex-wrap items-center justify-center gap-10">
+        <input type="text" className="bg-white md:w-[533px] px-10 py-3 rounded-3xl mx-auto" placeholder="Enter your email"/>
 
         <button className="bg-pri  px-10 py-3 rounded-2xl text-white">Subscribe</button>
         </div>

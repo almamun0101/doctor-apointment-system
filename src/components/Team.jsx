@@ -56,7 +56,7 @@ const Team = () => {
           Lorem ipsum dolor sit amet consectetur adipiscing elit semper dalar
           elementum tempus hac tellus libero accumsan.{" "}
         </p>
-        <div className="grid grid-cols-3 gap-10 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-10">
           {teams.map((member, index) => (
             <div
               key={index}

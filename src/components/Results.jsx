@@ -5,7 +5,7 @@ const Results = () => {
   return (
     <div className="container flex items-center justify-center flex-col py-20 gap-15 text-black dark:text-white font-bold">
       <h2 className="text-3xl text-pri font-medium ">Our Results In numbers</h2>
-      <div className="grid grid-cols-4 gap-30">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-30">
         <div className="flex  flex-col items-center gap-2">
           <CountUp
             className="text-4xl font-bold text-pri"

@@ -41,7 +41,7 @@ const Services = () => {
         Lorem ipsum dolor sit amet consectetur adipiscing elit semper dalar
         elementum tempus hac tellus libero accumsan.{" "}
       </p>
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {services.map((s, index) => (
           <div
             key={index}

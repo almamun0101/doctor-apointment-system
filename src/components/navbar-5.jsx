@@ -36,6 +36,7 @@ import { ModeToggle } from "./ModeToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser, setUser } from "@/app/store/userSlice";
 import { getAuth, signOut } from "firebase/auth";
+import Link from "next/link";
 
 const features = [
   {
@@ -153,7 +154,6 @@ export const Navbar5 = () => {
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
             <ModeToggle />
-        
 
             {/* profile dropdown */}
             <Dropdown>
@@ -163,11 +163,12 @@ export const Navbar5 = () => {
                   alt="User avatar"
                   className="h-10 w-10 rounded-full border-2 border-border hover:border-primary transition-colors"
                 />
-
-
               </DropdownTrigger>
               <DropdownContent align="end" className="w-56">
-                <DropdownItem className="gap-2" onClick={()=>router.push("/patientDashboard")}>
+                <DropdownItem
+                  className="gap-2"
+                  onClick={() => router.push("/patientDashboard")}
+                >
                   <UserCircle className="h-4 w-4" />
                   Profile
                 </DropdownItem>
@@ -180,7 +181,11 @@ export const Navbar5 = () => {
                   Settings
                 </DropdownItem>
                 <DropdownSeparator />
-                <DropdownItem  onClick={handleLogout} className="gap-2" destructive>
+                <DropdownItem
+                  onClick={handleLogout}
+                  className="gap-2"
+                  destructive
+                >
                   <LogOut className="h-4 w-4" />
                   Log out
                 </DropdownItem>
@@ -201,13 +206,11 @@ export const Navbar5 = () => {
                     className="flex items-center gap-2"
                   >
                     <img
-                      src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
+                      src="/logo.png"
                       className="max-h-8"
-                      alt="Shadcnblocks"
+                      alt="Shadcn UI Navbar"
                     />
-                    <span className="text-lg font-semibold tracking-tighter">
-                      Shadcnblocks.com
-                    </span>
+                    <span className="text-lg font-semibold tracking-tighter"></span>
                   </a>
                 </SheetTitle>
               </SheetHeader>
@@ -240,19 +243,25 @@ export const Navbar5 = () => {
                   </AccordionItem>
                 </Accordion>
                 <div className="flex flex-col gap-6">
-                  <a href="#" className="font-medium">
-                    Templates
+                  <a href="/apointment" className="font-medium">
+                    Apointment
                   </a>
-                  <a href="#" className="font-medium">
-                    Blog
+                  <a href="/contact" className="font-medium">
+                    Contact
                   </a>
-                  <a href="#" className="font-medium">
-                    Pricing
+                  <a href="/help" className="font-medium">
+                    Help
                   </a>
                 </div>
                 <div className="mt-6 flex flex-col gap-4">
-                  <Button variant="outline">Sign in</Button>
-                  <Button>Start for free</Button>
+                  <Link href="/patientDashboard">
+                    {" "}
+                    <img
+                      src={user?.photo}
+                      alt="User avatar"
+                      className="h-10 w-10 rounded-full border-2 border-border hover:border-primary transition-colors"
+                    />
+                  </Link>
                 </div>
               </div>
             </SheetContent>
