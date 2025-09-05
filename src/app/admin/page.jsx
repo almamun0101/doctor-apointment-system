@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
   Plus,
@@ -9,11 +9,15 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, push, ref, set, update } from "firebase/database";
 import firebaseConfig from "../firebase.config";
+import useFetchData from "../data/useFetchData";
 
 const AdminControlPanel = () => {
   const db = getDatabase();
+  const doctorsList = useFetchData("doctorList");
+  const appointmentList = useFetchData("apointment");
+
   const [doctorForm, setDoctorForm] = useState({
     name: "",
     specialty: "",
@@ -81,7 +85,6 @@ const AdminControlPanel = () => {
     },
   ]);
 
-
   const [activeTab, setActiveTab] = useState("doctors");
 
   // Helper function to get doctor name by ID
@@ -100,41 +103,40 @@ const AdminControlPanel = () => {
 
   // Add new doctor
   const addDoctor = () => {
-  if (doctorForm.name && doctorForm.specialty) {
-    const newDoctor = {
-      id: Date.now(),
-      ...doctorForm,
-    };
+    if (doctorForm.name && doctorForm.specialty) {
+      const newDoctor = {
+        id: Date.now(),
+        ...doctorForm,
+      };
 
-    // Save to Firebase (auto ID from push)
-    set(push(ref(db, "doctorlist/")), {
-      ...doctorForm,
-    }).then(()=>{
+      // Save to Firebase (auto ID from push)
+      set(push(ref(db, "doctorList/")), {
+        ...doctorForm,
+      })
+        .then(() => {
+          console.log("Data send");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-        console.log("Data send")
+      // Update local state
+      setDoctors([...doctors, newDoctor]);
 
-    }).catch((error)=>{
-        console.log(error)
-    })
-
-    // Update local state
-    setDoctors([...doctors, newDoctor]);
-
-    // Reset form
-    setDoctorForm({
-      name: "",
-      specialty: "",
-      phone: "",
-      hospital: "",
-      experience: "",
-      study: "",
-      email: "",
-      bio: "",
-      image: "",
-    });
-  }
-};
-
+      // Reset form
+      setDoctorForm({
+        name: "",
+        specialty: "",
+        phone: "",
+        hospital: "",
+        experience: "",
+        study: "",
+        email: "",
+        bio: "",
+        image: "",
+      });
+    }
+  };
 
   // Delete doctor
   const deleteDoctor = (id) => {
@@ -142,25 +144,28 @@ const AdminControlPanel = () => {
   };
 
   // Confirm appointment request
-  const confirmAppointment = (requestId) => {
-    const request = appointmentRequests.find((req) => req.id === requestId);
-    if (request) {
-      const serialNumber = generateSerialNumber(request.doctorId, request.date);
-      const confirmedAppointment = {
-        ...request,
-        serialNumber,
-        status: "confirmed",
-      };
+const confirmAppointment = (apointmentid) => {
+  const request = appointmentList.find((req) => req.uid === apointmentid);
+  console.log(request)
 
-      setConfirmedAppointments([
-        ...confirmedAppointments,
-        confirmedAppointment,
-      ]);
-      setAppointmentRequests(
-        appointmentRequests.filter((req) => req.id !== requestId)
-      );
-    }
-  };
+  if (request) {
+    const serialNumber = generateSerialNumber(request.doctorId, request.date);
+
+    const appointmentRef = ref(db, `apointment/${apointmentid}`);
+    console.log(apointmentid)
+    update(ref(db, `apointment/${apointmentid}`), {
+
+         
+          status: "confirmed",
+        })
+          .then(() => {
+            console.log("Value updated successfully.");
+          })
+          .catch((error) => {
+            console.error("Error updating value:", error);
+          });
+  }
+};
 
   // Reject appointment request
   const rejectAppointment = (requestId) => {
@@ -176,7 +181,7 @@ const AdminControlPanel = () => {
     );
   };
 
-   const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setDoctorForm((prev) => ({
       ...prev,
@@ -193,7 +198,7 @@ const AdminControlPanel = () => {
   };
 
   return (
-    <div className="min-h-screen text-black p-6 bg-black">
+    <div className="min-h-screen  p-6 bg-white/60 text-black">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
           Medical Admin Control Panel
@@ -344,7 +349,7 @@ const AdminControlPanel = () => {
             <div className="bg-white/20 rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold mb-4">Current Doctors</h2>
               <div className="grid gap-4">
-                {doctors.map((doctor) => (
+                {doctorsList.map((doctor) => (
                   <div
                     key={doctor.id}
                     className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
@@ -381,61 +386,62 @@ const AdminControlPanel = () => {
               <Clock className="mr-2 text-orange-600" size={20} />
               Pending Appointment Requests
             </h2>
-            {appointmentRequests.length === 0 ? (
+            {appointmentList.length === 0 ? (
               <p className="text-gray-500 text-center py-8">
                 No pending appointment requests
               </p>
             ) : (
               <div className="grid gap-4">
-                {appointmentRequests.map((request) => (
-                  <div
-                    key={request.id}
-                    className="border border-gray-200 rounded-lg p-4"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <p className="font-medium text-gray-900">
-                              {request.patientName}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              {request.phone}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              Reason: {request.reason}
-                            </p>
+                {appointmentList.map((apointment) => (
+                  <div key={apointment.id}>
+                    {apointment.status === "requested" && (
+                      <div className="border border-gray-200 rounded-lg p-4">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <p className="font-medium text-gray-900">
+                                  {apointment.patientName}
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  {apointment.phone}
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  Reason: {apointment.type}
+                                </p>
+                              </div>
+                              <div>
+                                <p className="text-sm text-gray-600">
+                                  Doctor: {getDoctorName(apointment.doctorId)}
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  Date: {apointment.date}
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  Time: {apointment.schedule}
+                                </p>
+                              </div>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-sm text-gray-600">
-                              Doctor: {getDoctorName(request.doctorId)}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              Date: {request.date}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              Time: {request.time}
-                            </p>
+                          <div className="flex space-x-2 ml-4">
+                            <button
+                              onClick={() => confirmAppointment(apointment.id)}
+                              className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition-colors flex items-center text-sm"
+                            >
+                              <CheckCircle className="mr-1" size={14} />
+                              Confirm
+                            </button>
+                            <button
+                              onClick={() => rejectAppointment(apointment.id)}
+                              className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors flex items-center text-sm"
+                            >
+                              <XCircle className="mr-1" size={14} />
+                              Reject
+                            </button>
                           </div>
                         </div>
                       </div>
-                      <div className="flex space-x-2 ml-4">
-                        <button
-                          onClick={() => confirmAppointment(request.id)}
-                          className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition-colors flex items-center text-sm"
-                        >
-                          <CheckCircle className="mr-1" size={14} />
-                          Confirm
-                        </button>
-                        <button
-                          onClick={() => rejectAppointment(request.id)}
-                          className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors flex items-center text-sm"
-                        >
-                          <XCircle className="mr-1" size={14} />
-                          Reject
-                        </button>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 ))}
               </div>

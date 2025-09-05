@@ -52,7 +52,7 @@ export default function DoctorAppointment() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [bookingConfirmed, setBookingConfirmed] = useState(false);
-  const [patientName, setPatientName] = useState(user?.name);
+  const [patientName, setPatientName] = useState("");
   const [treatmentType, settreatmentType] = useState("");
   const [comment, setComment] = useState("");
   const [patientContact, setPatientContact] = useState("");
@@ -60,7 +60,7 @@ export default function DoctorAppointment() {
 
   useEffect(() => {
     dispatch(loadDoctorFromStorage());
-    ``;
+    
   }, [dispatch]);
 
   // Calendar logic
@@ -149,9 +149,11 @@ export default function DoctorAppointment() {
         .toString(36)
         .substring(2, 11)
         .toUpperCase()}`;
-
-      set(push(ref(db, "apointment/")), {
-        patientName: user.name,
+ const appointmentRef = push(ref(db, "apointment/"));
+  const appointmentId = appointmentRef.key;
+      set(appointmentRef, {
+        uid:appointmentId,
+        patientName: patientName,
         contact: patientContact,
         doctorName: doctorSelect.name,
         doctorid: doctorSelect.id,
@@ -160,6 +162,7 @@ export default function DoctorAppointment() {
         bookingId: newBookingId,
         type:treatmentType,
         comment:comment,
+        status : "requested"
       })
         .then(() => {
           toast.success("Apoinment Sucussfull");
