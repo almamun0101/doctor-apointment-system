@@ -56,11 +56,11 @@ const Team = () => {
           Lorem ipsum dolor sit amet consectetur adipiscing elit semper dalar
           elementum tempus hac tellus libero accumsan.{" "}
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-10">
+        <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-10 py-10">
           {teams.map((member, index) => (
             <div
               key={index}
-              className="flex items-center text-center p-10 flex-col gap-3 bg-white p-5 rounded-2xl text-pri"
+              className="flex items-center text-center p-10 flex-col gap-3 bg-white rounded-2xl text-pri"
             >
               <img src={`${member.name}.png`} alt={member.title} />
               <h3 className="font-bold text-2xl pt-5">{member.name}</h3>
