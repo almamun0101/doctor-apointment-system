@@ -11,7 +11,7 @@ const Choose = () => {
           Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit
           phasellus mollis sit aliquam sit nullam.
         </p>
-        <div className="flex gap-5">
+        <div className="flex items-center justify-center gap-5">
             <button className="hover:bg-pri hover:text-white transition-colors bg-white text-black rounded-3xl px-10 py-3">Get Started</button>
             <button className="hover:bg-pri hover:text-white transition-colors bg-white text-black rounded-3xl px-10 py-3">Talk To sales</button>
         </div>
