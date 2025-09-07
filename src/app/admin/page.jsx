@@ -15,6 +15,8 @@ import useFetchData from "../data/useFetchData";
 
 const AdminControlPanel = () => {
   const db = getDatabase();
+  const [requests, setRequest ] = useState(0)
+  const [confirmed, setConfirmed ] = useState(0)
   const doctorsList = useFetchData("doctorList");
   const appointmentList = useFetchData("apointment");
 
@@ -144,28 +146,26 @@ const AdminControlPanel = () => {
   };
 
   // Confirm appointment request
-const confirmAppointment = (apointmentid) => {
-  const request = appointmentList.find((req) => req.uid === apointmentid);
-  console.log(request)
+  const confirmAppointment = (apointmentid) => {
+    const request = appointmentList.find((req) => req.uid === apointmentid);
+    console.log(request);
 
-  if (request) {
-    const serialNumber = generateSerialNumber(request.doctorId, request.date);
+    if (request) {
+      const serialNumber = generateSerialNumber(request.doctorId, request.date);
 
-    const appointmentRef = ref(db, `apointment/${apointmentid}`);
-    console.log(apointmentid)
-    update(ref(db, `apointment/${apointmentid}`), {
-
-         
-          status: "confirmed",
+      const appointmentRef = ref(db, `apointment/${apointmentid}`);
+      console.log(apointmentid);
+      update(ref(db, `apointment/${apointmentid}`), {
+        status: "confirmed",
+      })
+        .then(() => {
+          console.log("Value updated successfully.");
         })
-          .then(() => {
-            console.log("Value updated successfully.");
-          })
-          .catch((error) => {
-            console.error("Error updating value:", error);
-          });
-  }
-};
+        .catch((error) => {
+          console.error("Error updating value:", error);
+        });
+    }
+  };
 
   // Reject appointment request
   const rejectAppointment = (requestId) => {
@@ -224,7 +224,7 @@ const confirmAppointment = (apointmentid) => {
                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            Appointment Requests ({appointmentRequests.length})
+            Appointment Requests ({requests})
           </button>
           <button
             onClick={() => setActiveTab("confirmed")}
@@ -234,7 +234,7 @@ const confirmAppointment = (apointmentid) => {
                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            Confirmed Appointments ({confirmedAppointments.length})
+            Confirmed Appointments ({confirmed})
           </button>
         </div>
 
@@ -394,7 +394,10 @@ const confirmAppointment = (apointmentid) => {
               <div className="grid gap-4">
                 {appointmentList.map((apointment) => (
                   <div key={apointment.id}>
-                    {apointment.status === "requested" && (
+                    {apointment.status === "requested" &&
+                    {setRequest(apointment.length)}
+
+                     (
                       <div className="border border-gray-200 rounded-lg p-4">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
@@ -456,57 +459,59 @@ const confirmAppointment = (apointmentid) => {
               <Calendar className="mr-2 text-green-600" size={20} />
               Confirmed Appointments
             </h2>
-            {confirmedAppointments.length === 0 ? (
+            {appointmentList.length === 0 ? (
               <p className="text-gray-500 text-center py-8">
                 No confirmed appointments
               </p>
             ) : (
               <div className="grid gap-4">
-                {confirmedAppointments.map((appointment) => (
-                  <div
-                    key={appointment.id}
-                    className="border border-gray-200 rounded-lg p-4 bg-green-50"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div>
-                            <p className="font-medium text-gray-900">
-                              #{appointment.serialNumber} -{" "}
-                              {appointment.patientName}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              {appointment.phone}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              Reason: {appointment.reason}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-gray-600">
-                              Doctor: {getDoctorName(appointment.doctorId)}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              Date: {appointment.date}
-                            </p>
-                            <p className="text-sm text-gray-600">
-                              Time: {appointment.time}
-                            </p>
-                          </div>
-                          <div>
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                              Serial #{appointment.serialNumber}
-                            </span>
+                {appointmentList.map((appointment) => (
+                  <div key={appointment.id}>
+                    {appointment.status === "confirmed" && 
+
+                    <div className="border border-gray-200 rounded-lg p-4 bg-green-50">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <p className="font-medium text-gray-900">
+                                #{appointment.serialNumber} -{" "}
+                                {appointment.patientName}
+                              </p>
+                              <p className="text-sm text-gray-600">
+                                {appointment.phone}
+                              </p>
+                              <p className="text-sm text-gray-600">
+                                Reason: {appointment.reason}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-600">
+                                Doctor: {getDoctorName(appointment.doctorId)}
+                              </p>
+                              <p className="text-sm text-gray-600">
+                                Date: {appointment.date}
+                              </p>
+                              <p className="text-sm text-gray-600">
+                                Time: {appointment.time}
+                              </p>
+                            </div>
+                            <div>
+                              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Serial #{appointment.serialNumber}
+                              </span>
+                            </div>
                           </div>
                         </div>
+                        <button
+                          onClick={() => deleteAppointment(appointment.id)}
+                          className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50 ml-4"
+                        >
+                          <Trash2 size={18} />
+                        </button>
                       </div>
-                      <button
-                        onClick={() => deleteAppointment(appointment.id)}
-                        className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50 ml-4"
-                      >
-                        <Trash2 size={18} />
-                      </button>
                     </div>
+                    }
                   </div>
                 ))}
               </div>
