@@ -23,7 +23,7 @@ const Trusted = () => {
       </div>
 
       <div className="py-20  flex justify-center flex-col items-center">
-        <h2 className="py-5 text-3xl text-black font-bold">
+        <h2 className="py-5 text-3xl text-black  dark:text-white font-bold">
           Subscribe to our newsletter
         </h2>
         <div className="flex flex-wrap items-center justify-center gap-10">
