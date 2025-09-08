@@ -1,3 +1,4 @@
+"use client"
 import { setDoctor } from "@/app/store/doctorSlice";
 import { MapPin, Clock, Star, CheckCircle, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";

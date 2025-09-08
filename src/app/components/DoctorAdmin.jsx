@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getDatabase, push, ref, set, update } from "firebase/database";
 import useFetchData from "@/app/data/useFetchData";
 import { Trash2, User } from "lucide-react";
@@ -11,7 +11,11 @@ const DoctorAdmin = () => {
   const doctorsListFetch = useFetchData("doctorList");
   const [doctorAdd, setDoctorAdd] = useState(false);
   const [query, setQuery] = useState("");
+  const appointmentFetch = useFetchData("apointment");
 
+  const appointmentList = appointmentFetch.data;
+  const [dcotorAppoinmetn, setDcotorAppoinmetn] = useState([]);
+  // console.log(appointmentList)
   const doctorsList = doctorsListFetch.data;
   const [allDoctor, setAllDoctor] = useState();
   const doctorsLoading = doctorsListFetch.loading;
@@ -73,9 +77,22 @@ const DoctorAdmin = () => {
     addDoctor();
     console.log("Doctor data:", doctorForm);
   };
+//   useEffect(() => {
+//     if (appointmentList?.length > 0) {
+//       const ids = appointmentList.map((appointment) => appointment.doctorName);
+//       setDcotorAppoinmetn(ids);
+    
+//     }
+//   }, [appointmentList]);
+
+  const totallPatient = ()=>{
+
+  }
 
   const filterDoctorList = query
-    ? doctorsList.filter((d) =>  d.name.toLowerCase().includes(query.toLowerCase()))
+    ? doctorsList.filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase())
+      )
     : doctorsList;
 
   return (
@@ -218,10 +235,13 @@ const DoctorAdmin = () => {
               </div>
             </form>
           ) : (
-            <div className="flex justify-between gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
               <div className="w-full bg-white rounded-lg shadow-md p-6">
                 <div className="flex justify-between items-center pb-4">
-                  <h2 className="text-xl font-semibold">{query ? "Results " :  "All Doctors"} ({filterDoctorList.length})</h2>
+                  <h2 className="text-xl font-semibold">
+                    {query ? "Results " : "All Doctors"} (
+                    {filterDoctorList.length})
+                  </h2>
                   <div className="flex gap-2 ">
                     <div className="relative">
                       <input
@@ -253,33 +273,39 @@ const DoctorAdmin = () => {
                   </div>
                 </div>
                 <div className="grid gap-4">
-                  {filterDoctorList.map((doctor) => (
-                    <div
-                      key={doctor.id}
-                      className="flex bg-gray-100 items-center justify-between p-4 border border-gray-200 rounded-lg"
-                    >
-                      <div className="flex items-center space-x-4">
-                        <User className="text-blue-600" size={24} />
-                        <div>
-                          <h3 className="font-medium text-gray-900">
-                            {doctor.name}
-                          </h3>
-                          <p className="text-sm text-gray-600">
-                            {doctor.specialty}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {doctor.phone}
-                          </p>
+                  {filterDoctorList.map((doctor) => {
+                    const mypatient = totallPatient(dcotorAppoinmetn.uid)
+                    return (
+                      <div
+                        key={doctor.id}
+                        className="flex bg-gray-100 items-center justify-between p-4 border border-gray-200 rounded-lg"
+                      >
+                        <div className="flex items-center space-x-4">
+                          <User className="text-blue-600" size={24} />
+                          <div>
+                            <h3 className="font-medium text-gray-900">
+                              {doctor.name}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                              {doctor.specialty}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {doctor.phone}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="">
+                          <h3>22</h3>
+                          <button
+                            onClick={() => deleteDoctor(doctor.id)}
+                            className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50"
+                          >
+                            <Trash2 size={18} />
+                          </button>
                         </div>
                       </div>
-                      <button
-                        onClick={() => deleteDoctor(doctor.id)}
-                        className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
               <div className="w-full bg-white rounded-lg shadow-md p-6">
@@ -317,6 +343,7 @@ const DoctorAdmin = () => {
                     </button>
                   </div>
                 </div>
+
                 <div className="grid gap-4">
                   {doctorsList
                     ?.filter((a) => a.status === "available")

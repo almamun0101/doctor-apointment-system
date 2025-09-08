@@ -3,11 +3,12 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctor } from "@/app/store/doctorSlice";
-import { doctorsList } from "../data/doctors";
+// import { doctorsList } from "../data/doctors";
 import { loadDoctorFromStorage } from "@/app/store/doctorSlice";
 import { getDatabase, push, ref, set } from "firebase/database";
 import moment from "moment";
 import toast, { Toaster } from "react-hot-toast";
+import useFetchData from "../data/useFetchData";
 // Icons
 const ChevronLeft = ({ className = "w-6 h-6" }) => (
   <svg
@@ -43,7 +44,8 @@ export default function DoctorAppointment() {
   const db = getDatabase();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
-
+  const doctorsListFetch = useFetchData("doctorList");
+  const doctorsList = doctorsListFetch.data;
   const doctorSelect = useSelector((state) => state.doctor.currentDoctor);
 
   // State
@@ -60,7 +62,6 @@ export default function DoctorAppointment() {
 
   useEffect(() => {
     dispatch(loadDoctorFromStorage());
-    
   }, [dispatch]);
 
   // Calendar logic
@@ -149,10 +150,10 @@ export default function DoctorAppointment() {
         .toString(36)
         .substring(2, 11)
         .toUpperCase()}`;
- const appointmentRef = push(ref(db, "apointment/"));
-  const appointmentId = appointmentRef.key;
+      const appointmentRef = push(ref(db, "apointment/"));
+      const appointmentId = appointmentRef.key;
       set(appointmentRef, {
-        uid:appointmentId,
+        uid: appointmentId,
         patientName: patientName,
         contact: patientContact,
         doctorName: doctorSelect.name,
@@ -160,9 +161,9 @@ export default function DoctorAppointment() {
         date: selectedDate.toLocaleString(),
         schedule: selectedTime,
         bookingId: newBookingId,
-        type:treatmentType,
-        comment:comment,
-        status : "requested"
+        type: treatmentType,
+        comment: comment,
+        status: "requested",
       })
         .then(() => {
           toast.success("Apoinment Sucussfull");
@@ -184,7 +185,7 @@ export default function DoctorAppointment() {
   };
 
   // Live search filtering
-  const filteredDoctors = doctorsList.filter((doc) => {
+  const filteredDoctors = doctorsList?.filter((doc) => {
     const name = doc.name ? doc.name.toLowerCase() : "";
     const specialty = doc.specialty
       ? doc.specialty.toLowerCase()
@@ -194,10 +195,15 @@ export default function DoctorAppointment() {
     const term = searchTerm.toLowerCase();
     return name.includes(term) || specialty.includes(term);
   });
+
+  
   const handleSearch = (doc) => {
     dispatch(setDoctor(doc));
     setSearchTerm("");
+    console.log(doc.id)
   };
+
+
   if (bookingConfirmed) {
     return (
       <div className="flex items-center justify-center py-20 p-4">
@@ -253,8 +259,8 @@ export default function DoctorAppointment() {
   }
 
   return (
-    <div className="flex justify-center p-4 py-10 container">
-      <main className="bg-white rounded-2xl shadow-lg flex flex-col md:flex-row gap-10 overflow-hidden w-full max-w-6xl">
+    <div className="flex justify-center p-4 my-10 container">
+      <main className="bg-white mb-10 rounded-2xl shadow-lg flex flex-col md:flex-row gap-10 overflow-hidden w-full max-w-6xl">
         <Toaster />
         {/* Left: Doctor Info + Search */}
 
@@ -298,11 +304,11 @@ export default function DoctorAppointment() {
           {searchTerm ||
             (doctorSelect && (
               <div className="flex flex-col items-center md:items-start text-center md:text-left mt-6">
-                <img
+                {/* <img
                   src={doctorSelect.avatar || doctorSelect.image}
                   alt={doctorSelect.name}
                   className="w-32 h-32 rounded-full border-4 border-white shadow-md mb-4"
-                />
+                /> */}
                 <h2 className="text-2xl font-bold text-gray-800">
                   {doctorSelect.name}
                 </h2>
@@ -452,7 +458,7 @@ export default function DoctorAppointment() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
-              <div className="w-full">
+                <div className="w-full">
                   <label className="block text-sm font-medium text-gray-600 mb-1">
                     Phone Number or Email
                   </label>
@@ -472,15 +478,17 @@ export default function DoctorAppointment() {
                   <label className="block text-sm font-medium text-gray-600 mb-1">
                     Type
                   </label>
-                 <select onChange={(e)=>settreatmentType(e.target.value)} className="border text-gray-400 w-full px-5  p-3 rounded-2xl">
-                  <option value="0" >Select Type</option>
-                  <option value="Check Up" >Check Up</option>
-                  <option value="Consultation" >Consultation</option>
-                  <option value="Report Visit" >Report Visit</option>
-                  <option value="Follow Up" >Follow Up</option>
-                  <option value="Others" >Others</option>
-
-                 </select>
+                  <select
+                    onChange={(e) => settreatmentType(e.target.value)}
+                    className="border text-gray-400 w-full px-5  p-3 rounded-2xl"
+                  >
+                    <option value="0">Select Type</option>
+                    <option value="Check Up">Check Up</option>
+                    <option value="Consultation">Consultation</option>
+                    <option value="Report Visit">Report Visit</option>
+                    <option value="Follow Up">Follow Up</option>
+                    <option value="Others">Others</option>
+                  </select>
                 </div>
                 <div className="w-full">
                   <label className="block text-sm font-medium text-gray-600 mb-1">

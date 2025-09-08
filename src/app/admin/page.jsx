@@ -25,7 +25,7 @@ const AdminControlPanel = () => {
   const appointmentList = appointmentFetch.data;
 
   const appointmentLoading = appointmentFetch.loading;
-  const [activeTab, setActiveTab] = useState("requests");
+  const [activeTab, setActiveTab] = useState("doctors");
 
   // Delete doctor
   const deleteDoctor = (id) => {
@@ -394,7 +394,7 @@ const AdminControlPanel = () => {
         <div>
           {activeTab === "doctors" && (
             <div className="">
-              <DoctorAdmin />
+              <DoctorAdmin appointmentList/>
             </div>
           )}
         </div>
