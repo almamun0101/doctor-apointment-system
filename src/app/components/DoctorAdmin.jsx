@@ -4,12 +4,16 @@ import { getDatabase, push, ref, set, update } from "firebase/database";
 import useFetchData from "@/app/data/useFetchData";
 import { Trash2, User } from "lucide-react";
 import firebaseConfig from "@/app/firebase.config";
+import { CiSearch } from "react-icons/ci";
 
 const DoctorAdmin = () => {
   const db = getDatabase();
   const doctorsListFetch = useFetchData("doctorList");
   const [doctorAdd, setDoctorAdd] = useState(false);
+  const [query, setQuery] = useState("");
+
   const doctorsList = doctorsListFetch.data;
+  const [allDoctor, setAllDoctor] = useState();
   const doctorsLoading = doctorsListFetch.loading;
   const [doctorForm, setDoctorForm] = useState({
     name: "",
@@ -69,6 +73,11 @@ const DoctorAdmin = () => {
     addDoctor();
     console.log("Doctor data:", doctorForm);
   };
+
+  const filterDoctorList = query
+    ? doctorsList.filter((d) =>  d.name.toLowerCase().includes(query.toLowerCase()))
+    : doctorsList;
+
   return (
     <div className="container">
       {doctorsLoading ? (
@@ -211,46 +220,66 @@ const DoctorAdmin = () => {
           ) : (
             <div className="flex justify-between gap-5">
               <div className="w-full bg-white rounded-lg shadow-md p-6">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold mb-4">
-                    Available Doctors
-                  </h2>
-                  <button onClick={() => setDoctorAdd(!doctorAdd)}>
-                    Add Doctor
-                  </button>
-              
-              
+                <div className="flex justify-between items-center pb-4">
+                  <h2 className="text-xl font-semibold">{query ? "Results " :  "All Doctors"} ({filterDoctorList.length})</h2>
+                  <div className="flex gap-2 ">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        className="border border-black/40 rounded-2xl p-1 px-5"
+                      />
+                      {!query ? (
+                        <CiSearch
+                          size={20}
+                          className="absolute top-1/2 -translate-y-1/2 right-5"
+                        />
+                      ) : (
+                        <button
+                          onClick={() => setQuery("")}
+                          className="absolute top-1/2 -translate-y-1/2 right-5"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setDoctorAdd(!doctorAdd)}
+                      className="bg-green-400 text-white px-5 py-1 rounded-2xl"
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
                 <div className="grid gap-4">
-                  {doctorsList
-                    ?.filter((a) => a.status === "unavailable")
-                    .map((doctor) => (
-                      <div
-                        key={doctor.id}
-                        className="flex bg-gray-100 items-center justify-between p-4 border border-gray-200 rounded-lg"
-                      >
-                        <div className="flex items-center space-x-4">
-                          <User className="text-blue-600" size={24} />
-                          <div>
-                            <h3 className="font-medium text-gray-900">
-                              {doctor.name}
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                              {doctor.specialty}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {doctor.phone}
-                            </p>
-                          </div>
+                  {filterDoctorList.map((doctor) => (
+                    <div
+                      key={doctor.id}
+                      className="flex bg-gray-100 items-center justify-between p-4 border border-gray-200 rounded-lg"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <User className="text-blue-600" size={24} />
+                        <div>
+                          <h3 className="font-medium text-gray-900">
+                            {doctor.name}
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            {doctor.specialty}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {doctor.phone}
+                          </p>
                         </div>
-                        <button
-                          onClick={() => deleteDoctor(doctor.id)}
-                          className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50"
-                        >
-                          <Trash2 size={18} />
-                        </button>
                       </div>
-                    ))}
+                      <button
+                        onClick={() => deleteDoctor(doctor.id)}
+                        className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="w-full bg-white rounded-lg shadow-md p-6">
@@ -258,9 +287,35 @@ const DoctorAdmin = () => {
                   <h2 className="text-xl font-semibold mb-4">
                     Current Doctors
                   </h2>
-                  <button onClick={() => setDoctorAdd(!doctorAdd)}>
-                    Add Doctor
-                  </button>
+                  <div className="flex gap-2 ">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        className="border border-black/40 rounded-2xl p-1 px-5"
+                      />
+                      {!query ? (
+                        <CiSearch
+                          size={20}
+                          className="absolute top-1/2 -translate-y-1/2 right-5"
+                        />
+                      ) : (
+                        <button
+                          onClick={() => setQuery("")}
+                          className="absolute top-1/2 -translate-y-1/2 right-5"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setDoctorAdd(!doctorAdd)}
+                      className="bg-green-400 text-white px-5 py-1 rounded-2xl"
+                    >
+                      Add
+                    </button>
+                  </div>
                 </div>
                 <div className="grid gap-4">
                   {doctorsList
