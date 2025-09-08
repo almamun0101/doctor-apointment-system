@@ -8,7 +8,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup 
+  signInWithPopup,
 } from "firebase/auth";
 import { getDatabase, ref, set, get } from "firebase/database";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,6 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
 import { setUser } from "../store/userSlice";
-
 
 const cn = (...classes) => {
   return classes.filter(Boolean).join(" ");
@@ -334,33 +333,36 @@ const SignInCard = () => {
       });
   };
 
-const handleGoogleLogin = async () => {
-  try {
-    const userCredential = await signInWithPopup(auth, provider);
-    const user = userCredential.user;
+  const handleGoogleLogin = async () => {
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
 
-    const patientRef = ref(db, `patients/${user.uid}`);
-    const doctorRef = ref(db, `doctors/${user.uid}`);
+      const patientRef = ref(db, `patients/${user.uid}`);
+      const doctorRef = ref(db, `doctors/${user.uid}`);
 
-    let dbRole = null;
-    const patientSnap = await get(patientRef);
-    if (patientSnap.exists()) dbRole = "patients";
+      let dbRole = null;
+      const patientSnap = await get(patientRef);
+      if (patientSnap.exists()) dbRole = "patients";
 
-    const doctorSnap = await get(doctorRef);
-    if (doctorSnap.exists()) dbRole = "doctors";
+      const doctorSnap = await get(doctorRef);
+      if (doctorSnap.exists()) dbRole = "doctors";
 
-    if (!dbRole) {
-      await set(ref(db, `${role}/${user.uid}`), { email: user.email, uid: user.uid });
-      dbRole = role;
+      if (!dbRole) {
+        await set(ref(db, `${role}/${user.uid}`), {
+          email: user.email,
+          uid: user.uid,
+        });
+        dbRole = role;
+      }
+
+      dispatch(setUser({ uid: user.uid, email: user.email, role: dbRole }));
+      router.push(`/${dbRole}`);
+    } catch (err) {
+      console.log(err);
+      toast.error("Google login failed");
     }
-
-    dispatch(setUser({ uid: user.uid, email: user.email, role: dbRole }));
-    router.push(`/${dbRole}`);
-  } catch (err) {
-    console.log(err);
-    toast.error("Google login failed");
-  }
-};
+  };
   return (
     <div className="flex w-full h-full items-center justify-center">
       <motion.div
@@ -393,7 +395,7 @@ const handleGoogleLogin = async () => {
                 transition={{ delay: 0.7, duration: 0.5 }}
                 className="text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
               >
-                Travel Connect
+                Health Care
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: -20 }}
@@ -401,8 +403,7 @@ const handleGoogleLogin = async () => {
                 transition={{ delay: 0.8, duration: 0.5 }}
                 className="text-sm text-center text-gray-600 max-w-xs"
               >
-                Sign in to access your global travel dashboard and connect with
-                nomads worldwide
+                Sign in to access your Health care Service
               </motion.p>
             </div>
           </div>
@@ -446,7 +447,6 @@ const handleGoogleLogin = async () => {
                   <span>Doctor</span>
                 </label>
               </div>
-
 
               <div>
                 <label

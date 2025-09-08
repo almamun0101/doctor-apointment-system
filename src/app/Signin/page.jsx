@@ -409,7 +409,7 @@ const SignInCard = () => {
                 transition={{ delay: 0.7, duration: 0.5 }}
                 className="text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
               >
-                Travel Connect
+                Health Care
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: -20 }}
@@ -417,8 +417,7 @@ const SignInCard = () => {
                 transition={{ delay: 0.8, duration: 0.5 }}
                 className="text-sm text-center text-gray-600 max-w-xs"
               >
-                Sign in to access your global travel dashboard and connect with
-                nomads worldwide
+                Sign in to access your Health care Service
               </motion.p>
             </div>
           </div>

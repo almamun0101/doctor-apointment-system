@@ -14,7 +14,7 @@ const DoctorAdmin = () => {
   const appointmentFetch = useFetchData("apointment");
 
   const appointmentList = appointmentFetch.data;
-  const [dcotorAppoinmetn, setDcotorAppoinmetn] = useState([]);
+  const [showPatients, setShowPatients] = useState(null);
   // console.log(appointmentList)
   const doctorsList = doctorsListFetch.data;
   const [allDoctor, setAllDoctor] = useState();
@@ -75,19 +75,23 @@ const DoctorAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addDoctor();
-    console.log("Doctor data:", doctorForm);
   };
-//   useEffect(() => {
-//     if (appointmentList?.length > 0) {
-//       const ids = appointmentList.map((appointment) => appointment.doctorName);
-//       setDcotorAppoinmetn(ids);
-    
-//     }
-//   }, [appointmentList]);
+  //   useEffect(() => {
+  //     if (appointmentList?.length > 0) {
+  //       const ids = appointmentList.map((appointment) => appointment.doctorName);
+  //       setDcotorAppoinmetn(ids);
 
-  const totallPatient = ()=>{
+  //     }
+  //   }, [appointmentList]);
 
-  }
+  const totallPatient = (id) => {
+    const mypaitents = appointmentList.filter((a) => a.doctorid === id);
+    return mypaitents;
+  };
+
+  const handlePatientView = (id) => {
+    setShowPatients(showPatients === id ? null : id);
+  };
 
   const filterDoctorList = query
     ? doctorsList.filter((d) =>
@@ -235,8 +239,8 @@ const DoctorAdmin = () => {
               </div>
             </form>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-5">
-              <div className="w-full bg-white rounded-lg shadow-md p-6">
+            <div className="grid  grid-cols-1 md:grid-cols-2  justify-between gap-5">
+              <div className="w-full bg-white rounded-lg max-h-2/3 overflow-auto shadow-md p-6">
                 <div className="flex justify-between items-center pb-4">
                   <h2 className="text-xl font-semibold">
                     {query ? "Results " : "All Doctors"} (
@@ -274,41 +278,62 @@ const DoctorAdmin = () => {
                 </div>
                 <div className="grid gap-4">
                   {filterDoctorList.map((doctor) => {
-                    const mypatient = totallPatient(dcotorAppoinmetn.uid)
+                    const mypaitent = totallPatient(doctor.id);
+
                     return (
                       <div
                         key={doctor.id}
-                        className="flex bg-gray-100 items-center justify-between p-4 border border-gray-200 rounded-lg"
+                        className="relative flex flex-col bg-gray-100 border border-gray-200 rounded-lg p-4"
                       >
-                        <div className="flex items-center space-x-4">
-                          <User className="text-blue-600" size={24} />
-                          <div>
-                            <h3 className="font-medium text-gray-900">
-                              {doctor.name}
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                              {doctor.specialty}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {doctor.phone}
-                            </p>
+                        {/* Doctor info */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <User className="text-blue-600" size={24} />
+                            <div>
+                              <h3 className="font-medium text-gray-900">
+                                {doctor.name}
+                              </h3>
+                              <p className="text-sm text-gray-600">
+                                {doctor.specialty}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {doctor.phone}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col items-end space-y-2">
+                            <button
+                              onClick={() => handlePatientView(doctor.id)}
+                              className="border border-black rounded-lg px-2 py-1 text-sm"
+                            >
+                              {mypaitent.length}
+                            </button>
+                            <button
+                              onClick={() => deleteDoctor(doctor.id)}
+                              className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         </div>
-                        <div className="">
-                          <h3>22</h3>
-                          <button
-                            onClick={() => deleteDoctor(doctor.id)}
-                            className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50"
-                          >
-                            <Trash2 size={18} />
-                          </button>
-                        </div>
+
+                        {/* Patient section */}
+                        {showPatients === doctor.id && (
+                          <div className="mt-4 bg-gray-200 p-4 rounded-lg transition-all duration-300">
+                            {mypaitent.map((p, i) => (
+                              <div key={i} className="">
+                                {p.patientName}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     );
                   })}
                 </div>
               </div>
-              <div className="w-full bg-white rounded-lg shadow-md p-6">
+              <div className="w-full max-h-2/3 bg-white rounded-lg shadow-md p-6">
                 <div className="flex justify-between items-center">
                   <h2 className="text-xl font-semibold mb-4">
                     Current Doctors
