@@ -1,11 +1,11 @@
 "use client";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, off, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 
 const useFetchData = (collection) => {
   const db = getDatabase();
-  const [List, setList] = useState([]);
-  
+  const [data, setData] = useState([]);
+  const [loading, setLoading ] = useState(true)
 
   useEffect(() => {
     if (!collection) return;
@@ -18,16 +18,19 @@ const useFetchData = (collection) => {
           id,
           ...value,
         }));
-        setList(array);
+        setData(array);
       } else {
-        setList([]);
+        setData([]);
       }
+      setLoading(false)
     });
 
-    return () => unsubscribe();
+    return () => {
+      off(starCountRef); // remove listener
+    };
   }, []);
 
-  return List;
+  return {data,loading};
 };
 
 export default useFetchData;

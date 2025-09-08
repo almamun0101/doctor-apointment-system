@@ -84,7 +84,7 @@ export const Navbar5 = () => {
 
   return (
     <section className="py-4">
-      <div className="container">
+      <div className="container ">
         <nav className="flex items-center justify-between">
           <a
             href="https://www.shadcnblocks.com"
@@ -153,7 +153,7 @@ export const Navbar5 = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <ModeToggle />
+          
 
             {/* profile dropdown */}
             <Dropdown>
@@ -193,6 +193,7 @@ export const Navbar5 = () => {
             </Dropdown>
           </div>
           <Sheet>
+            <ModeToggle />
             <SheetTrigger asChild className="lg:hidden">
               <Button variant="outline" size="icon">
                 <MenuIcon className="h-4 w-4" />
@@ -202,7 +203,7 @@ export const Navbar5 = () => {
               <SheetHeader>
                 <SheetTitle>
                   <a
-                    href="https://www.shadcnblocks.com"
+                    href="/"
                     className="flex items-center gap-2"
                   >
                     <img
@@ -211,6 +212,7 @@ export const Navbar5 = () => {
                       alt="Shadcn UI Navbar"
                     />
                     <span className="text-lg font-semibold tracking-tighter"></span>
+            
                   </a>
                 </SheetTitle>
               </SheetHeader>
@@ -267,6 +269,7 @@ export const Navbar5 = () => {
                   </button>
                 </div>
               </div>
+              
             </SheetContent>
           </Sheet>
         </nav>
