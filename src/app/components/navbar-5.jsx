@@ -97,7 +97,7 @@ export const Navbar5 = () => {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="/patients"
+                  href="/"
                   className={navigationMenuTriggerStyle()}
                 >
                   Home
